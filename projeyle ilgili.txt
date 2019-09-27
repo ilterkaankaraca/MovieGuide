@@ -1,7 +1,0 @@
-1-recovery gibi read only dosyalarý tarama sýrasýnda dikkatae alma
-2-directors cut gibi ekleri silme
-3-iç içe klasör taramasý
-4-klasörde olmayan filmler
-5-movies class ý struct yap
-6-show dialog araþtýr
-7-
