@@ -1,0 +1,7 @@
+1)Programýn film bilgilerini alabilmesi için internet baðlantýsý gereklidir.
+
+2)Yeni Yetkili kullanýcý kaydetmek için http://www.omdbapi.com/ adresinden alýnan api gereklidir. Aksi halde bulamayacaktýr.(Programda kayýtlý olan api bana aittir. Günlük sýnýrý 1000 sorgudur)
+
+
+
+
