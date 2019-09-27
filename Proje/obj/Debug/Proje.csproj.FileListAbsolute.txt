@@ -53,3 +53,6 @@ C:\Users\İlterkaan Karaca\Desktop\diyagramlar\movieguide\Proje Kodları\Proje\o
 C:\Users\Ilterkaan Karaca\Desktop\masaüstü\film projesi\movieguide\Proje Kodları\Proje\bin\Debug\Proje.exe.config
 C:\Users\Ilterkaan Karaca\Desktop\masaüstü\film projesi\movieguide\Proje Kodları\Proje\obj\Debug\Proje.exe
 C:\Users\Ilterkaan Karaca\Desktop\masaüstü\film projesi\movieguide\Proje Kodları\Proje\obj\Debug\Proje.pdb
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\Proje\bin\Debug\Proje.exe.config
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\Proje\obj\Debug\Proje.exe
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\Proje\obj\Debug\Proje.pdb
