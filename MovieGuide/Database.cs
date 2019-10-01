@@ -15,7 +15,7 @@ namespace Proje
         public static OleDbDataReader reader;
         public static OleDbDataAdapter adapter;
         public static DataTable table;
-        public static string API = "2bef03fb";
+        public static string API = "";
   
         //veri tabanına ekleme yapan metot.
         public void Add(Movie movie)
