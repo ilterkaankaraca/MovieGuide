@@ -13,5 +13,7 @@ CREATE TABLE MOVIE(
 	released dont need
 	language mappıng
 	imdb votes dont need 
-	imdb id 
+	imdb id
+	creation_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	modification_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 ) comment = 'lookup table for movie categories';
