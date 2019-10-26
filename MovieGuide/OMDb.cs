@@ -16,7 +16,7 @@ namespace Proje
     {
         Database Db = new Database();
         //API kullanarak film bilgilerini alan metot.
-        private string getInformation(string movie_title)
+        private string getMovieJSON(string movie_title)
         {
             string json;
             using (WebClient wc = new WebClient())
@@ -81,9 +81,9 @@ namespace Proje
         public bool Parse(string raw_title)
         {
             int digit = 0;
-            if (getInformation(raw_title)[2] != 'R')
+            if (getMovieJSON(raw_title)[2] != 'R')
             {
-                Deserialize(getInformation(raw_title));
+                Deserialize(getMovieJSON(raw_title));
                 return true;
             }
             else
@@ -97,9 +97,9 @@ namespace Proje
                         {
                             raw_title = raw_title.Substring(0, i - 1);
                             raw_title = raw_title.Replace('.', ' ');
-                            if (getInformation(raw_title)[2] != 'R')
+                            if (getMovieJSON(raw_title)[2] != 'R')
                             {
-                                Deserialize(getInformation(raw_title));
+                                Deserialize(getMovieJSON(raw_title));
                                 return true;
                             }
                             else
