@@ -12,15 +12,15 @@ namespace Proje
 {
     public partial class NotFound : Form
     {
-        Database Db = new Database();
+        DatabaseOperations Db = new DatabaseOperations();
         public int s;
         DataGridViewCellEventArgs k;
         public NotFound()
         {
             InitializeComponent();
             Db.List("NotFound");
-            dataGridView_notfound.DataSource = Database.table;
-            Database.table.AcceptChanges();
+            dataGridView_notfound.DataSource = DatabaseOperations.table;
+            DatabaseOperations.table.AcceptChanges();
             dataGridView_notfound.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             button_deleteall.Text = StringLiterals.delete_all;
         }
@@ -31,15 +31,15 @@ namespace Proje
             {
                 Db.DeleteAll("NotFound");
                 Db.List("NotFound");
-                dataGridView_notfound.DataSource = Database.table;
-                Database.table.AcceptChanges();
+                dataGridView_notfound.DataSource = DatabaseOperations.table;
+                DatabaseOperations.table.AcceptChanges();
             }
             else
             {
                 Db.Delete("NotFound", dataGridView_notfound.Rows[k.RowIndex].Cells[0].Value.ToString());
                 Db.List("NotFound");
-                dataGridView_notfound.DataSource = Database.table;
-                Database.table.AcceptChanges();
+                dataGridView_notfound.DataSource = DatabaseOperations.table;
+                DatabaseOperations.table.AcceptChanges();
                 button_deleteall.Text = StringLiterals.delete_all;
             }
         }

@@ -9,14 +9,18 @@ using System.DirectoryServices;
 
 namespace Proje
 {
-    class Database
+    class DatabaseOperations
     {
         public static OleDbCommand command;
         public static OleDbDataReader reader;
         public static OleDbDataAdapter adapter;
         public static DataTable table;
-        public static string API = "";
-  
+        public static string API;
+
+        public void Add(Movie movie)
+        {
+
+        }
         //veri tabanına ekleme yapan metot.
         public void Add(Movie movie)
         {
@@ -109,12 +113,12 @@ namespace Proje
                 Program.con.Open();
             if (table == "Movies")
             {
-                Database.command = new OleDbCommand("Delete from " + table + " where IMDBID='" + pkey + "'", Program.con);
+                DatabaseOperations.command = new OleDbCommand("Delete from " + table + " where IMDBID='" + pkey + "'", Program.con);
                 command.ExecuteNonQuery();
             }
             else
             {
-                Database.command = new OleDbCommand("Delete from " + table + " where TITLE='" + pkey + "'", Program.con);
+                DatabaseOperations.command = new OleDbCommand("Delete from " + table + " where TITLE='" + pkey + "'", Program.con);
                 command.ExecuteNonQuery();
             }
         }

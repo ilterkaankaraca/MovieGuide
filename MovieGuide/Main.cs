@@ -17,7 +17,7 @@ namespace Proje
         private string id;
         OMDb ombd = new OMDb();
         FolderBrowserDialog browser = new FolderBrowserDialog();
-        Database Db = new Database();
+        DatabaseOperations Db = new DatabaseOperations();
         NotFound nf;
         public int s;
         DataGridViewCellEventArgs k;
@@ -32,8 +32,8 @@ namespace Proje
             label_status.Hide();
             button_couldntfound.Text = StringLiterals.notfounds;
             Db.List("Movies");
-            datagridview_filmler.DataSource = Database.table;
-            Database.table.AcceptChanges();
+            datagridview_filmler.DataSource = DatabaseOperations.table;
+            DatabaseOperations.table.AcceptChanges();
             comboBox_column.Items.Add(StringLiterals.title);
             comboBox_column.Items.Add(StringLiterals.year);
             comboBox_column.Items.Add(StringLiterals.runtime);
@@ -63,15 +63,15 @@ namespace Proje
             {
                 Db.DeleteAll("Movies");
                 Db.List("Movies");
-                datagridview_filmler.DataSource = Database.table;
-                Database.table.AcceptChanges();
+                datagridview_filmler.DataSource = DatabaseOperations.table;
+                DatabaseOperations.table.AcceptChanges();
             }
             else
             {
                     Db.Delete("Movies", datagridview_filmler.Rows[k.RowIndex].Cells[15].Value.ToString());
                     Db.List("Movies");
-                    datagridview_filmler.DataSource = Database.table;
-                    Database.table.AcceptChanges();
+                    datagridview_filmler.DataSource = DatabaseOperations.table;
+                    DatabaseOperations.table.AcceptChanges();
                     button_deleteall.Text = StringLiterals.delete_all;
                 
             }
@@ -101,8 +101,8 @@ namespace Proje
                 Db.Search("Movies", textBox_search.Text, "COUNTRY");
             else if (comboBox_column.Text == StringLiterals.runtime)
                 Db.Search("Movies", textBox_search.Text, "RUNTIME");
-            datagridview_filmler.DataSource = Database.table;
-            Database.table.AcceptChanges();
+            datagridview_filmler.DataSource = DatabaseOperations.table;
+            DatabaseOperations.table.AcceptChanges();
         }
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -140,8 +140,8 @@ namespace Proje
                         ombd.Scan(browser.SelectedPath);
                         label_status.Hide();
                         Db.List("Movies");
-                        datagridview_filmler.DataSource = Database.table;
-                        Database.table.AcceptChanges();
+                        datagridview_filmler.DataSource = DatabaseOperations.table;
+                        DatabaseOperations.table.AcceptChanges();
                     }
                     else
                     {
@@ -165,8 +165,8 @@ namespace Proje
                     textBox_path.Clear();
                     label_status.Hide();
                     Db.List("Movies");
-                    datagridview_filmler.DataSource = Database.table;
-                    Database.table.AcceptChanges();
+                    datagridview_filmler.DataSource = DatabaseOperations.table;
+                    DatabaseOperations.table.AcceptChanges();
                 }
                 else
                 {

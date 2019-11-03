@@ -14,14 +14,14 @@ namespace Proje
 {
     class OMDb
     {
-        Database Db = new Database();
+        DatabaseOperations Db = new DatabaseOperations();
         //API kullanarak film bilgilerini alan metot.
         private string getMovieJSON(string movie_title)
         {
             string json;
             using (WebClient wc = new WebClient())
             {
-                json = wc.DownloadString("http://www.omdbapi.com/?t=" + movie_title + "&apikey=" + Database.API);
+                json = wc.DownloadString("http://www.omdbapi.com/?t=" + movie_title + "&apikey=" + DatabaseOperations.API);
             }
             return json;
         }
