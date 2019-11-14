@@ -11,7 +11,7 @@ CREATE TABLE MOVIE(
 	writer mapping
 	rated lookup
 	released dont need
-	language mappıng
+	language mapping
 	imdb votes dont need 
 	imdb id
 	creation_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
