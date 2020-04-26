@@ -1,1 +1,15 @@
 C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\MovieGuide\bin\Debug\MovieGuide.exe.config
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\MovieGuide\obj\Debug\MovieGuide.csprojAssemblyReference.cache
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\MovieGuide\obj\Debug\Proje.Main.resources
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\MovieGuide\obj\Debug\Proje.NotFound.resources
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\MovieGuide\obj\Debug\MovieGuide.Properties.Resources.resources
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\MovieGuide\obj\Debug\MovieGuide.csproj.GenerateResource.cache
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\MovieGuide\obj\Debug\MovieGuide.csproj.CoreCompileInputs.cache
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\MovieGuide\bin\Debug\MovieGuide.exe
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\MovieGuide\bin\Debug\MovieGuide.pdb
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\MovieGuide\bin\Debug\MySql.Data.dll
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\MovieGuide\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\MovieGuide\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\MovieGuide\obj\Debug\MovieGuide.csproj.CopyComplete
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\MovieGuide\obj\Debug\MovieGuide.exe
+C:\Users\Ilterkaan Karaca\Documents\GitHub\MovieGuide\MovieGuide\obj\Debug\MovieGuide.pdb

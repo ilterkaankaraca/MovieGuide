@@ -14,7 +14,6 @@ namespace Proje
 {
     public partial class Main : Form
     {
-        private string id;
         OMDb ombd = new OMDb();
         FolderBrowserDialog browser = new FolderBrowserDialog();
         DatabaseOperations Db = new DatabaseOperations();
@@ -25,7 +24,6 @@ namespace Proje
         public Main()
         {
             InitializeComponent();
-            this.id = id;
             textBox_path.Text = StringLiterals.selecting_path;
             button_scan.Text = StringLiterals.scan;
             button_deleteall.Text = StringLiterals.delete_all;

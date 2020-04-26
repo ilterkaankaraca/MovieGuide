@@ -17,11 +17,11 @@ namespace MovieGuide
         private string password;
 
         //Initialize values
-    private void Initialize()
+    public DBConnect()
     {
         server = "localhost";
         database = "movie_guide";
-        uid = "username";
+        uid = "movie_guide";
         password = "password";
         string connectionString;
         connectionString = "SERVER=" + server + ";" + "DATABASE=" + 
@@ -31,7 +31,7 @@ namespace MovieGuide
     }
 
     //open connection to database
-    private bool OpenConnection()
+    public bool OpenConnection()
     {
         try
         {
@@ -55,7 +55,7 @@ namespace MovieGuide
     }
 
     //Close connection
-    private bool CloseConnection()
+    public bool CloseConnection()
     {
         try
         {
@@ -69,42 +69,42 @@ namespace MovieGuide
         }
     }
 
-    //Insert statement
-    public void Insert()
-    {
-    }
+    ////Insert statement
+    //public void Insert()
+    //{
+    //}
 
-    //Update statement
-    public void Update()
-    {
-    }
+    ////Update statement
+    //public void Update()
+    //{
+    //}
 
-    //Delete statement
-    public void Delete()
-    {
-    }
+    ////Delete statement
+    //public void Delete()
+    //{
+    //}
 
-    //Select statement
-    public List <string> [] Select()
-    {
+    ////Select statement
+    //public List <string> [] Select()
+    //{
         
-    }
+    //}
 
-    //Count statement
-    public int Count()
-    {
-        return 0;
-    }
+    ////Count statement
+    //public int Count()
+    //{
+    //    return 0;
+    //}
 
-    //Backup
-    public void Backup()
-    {
-    }
+    ////Backup
+    //public void Backup()
+    //{
+    //}
 
-    //Restore
-    public void Restore()
-    {
-    }
+    ////Restore
+    //public void Restore()
+    //{
+    //}
 }
     }
 

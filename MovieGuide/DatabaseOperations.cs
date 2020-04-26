@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 using System.Data.OleDb;
 using System.Data;
 using System.DirectoryServices;
+using MovieGuide;
+using MySql.Data.MySqlClient;
 
 namespace Proje
 {
     class DatabaseOperations
     {
-        public static OleDbCommand command;
-        public static OleDbDataReader reader;
-        public static OleDbDataAdapter adapter;
         public static DataTable table;
         public static string API;
+        public DBConnect dBConnect = new DBConnect();
+        private MySqlCommand command;
+        private MySqlDataReader reader;
 
-        public void Add(Movie movie)
-        {
-
-        }
         //veri tabanına ekleme yapan metot.
         public void Add(Movie movie)
         {
@@ -28,11 +26,11 @@ namespace Proje
             {
                 Program.con.Open();
             }
-            command = new OleDbCommand("SELECT * FROM Movies WHERE IMDBID='"+movie.imdbID+"'",Program.con);
+            command = new MySqlCommand("SELECT * FROM Movies WHERE IMDBID='"+movie.imdbID+"'");
             reader = command.ExecuteReader();
             if (reader.Read()==false)
             {
-                command = new OleDbCommand("INSERT INTO Movies([TITLE], [YEAR], [RATED], [RELEASED], [RUNTIME], [GENRE], [ACTORS], [PLOT], [DIRECTOR], [WRITER], [LANGUAGE], [COUNTRY], [AWARDS], [IMDBRATING], [IMDBVOTES], [IMDBID]) VALUES (@Title, @Year, @Rated, @Released, @Runtime, @Genre, @Actors, @Plot, @Director, @Writer, @Language, @Country, @Awards, @imdbRating, @imdbVotes, @imdbID)", Program.con);
+                command = new MySqlCommand("INSERT INTO Movies([TITLE], [YEAR], [RATED], [RELEASED], [RUNTIME], [GENRE], [ACTORS], [PLOT], [DIRECTOR], [WRITER], [LANGUAGE], [COUNTRY], [AWARDS], [IMDBRATING], [IMDBVOTES], [IMDBID]) VALUES (@Title, @Year, @Rated, @Released, @Runtime, @Genre, @Actors, @Plot, @Director, @Writer, @Language, @Country, @Awards, @imdbRating, @imdbVotes, @imdbID)", Program.con);
                 command.Parameters.AddWithValue("@Title", movie.Title);
                 command.Parameters.AddWithValue("@Year", movie.Year);
                 command.Parameters.AddWithValue("@Rated", movie.Rated);
@@ -63,11 +61,11 @@ namespace Proje
             }
             string title = path.Remove(0, path.LastIndexOf("\\") + 1);
             title = title.Replace("'", "");
-            command = new OleDbCommand("SELECT * FROM NotFound WHERE TITLE='"+title+"'",Program.con);
+            command = new MySqlCommand("SELECT * FROM NotFound WHERE TITLE='"+title+"'",Program.con);
             reader = command.ExecuteReader();
             if (reader.Read()==false)
             {
-                command = new OleDbCommand("INSERT INTO NotFound([TITLE]) VALUES(@TITLE)", Program.con);
+                command = new MySqlCommand("INSERT INTO NotFound([TITLE]) VALUES(@TITLE)", Program.con);
                 command.Parameters.AddWithValue("@TITLE", title);
                 command.ExecuteNonQuery();
             }
@@ -80,7 +78,7 @@ namespace Proje
             {
                 Program.con.Open();
             }
-            command = new OleDbCommand("DELETE * FROM " + table_name + "" , Program.con);
+            command = new MySqlCommand("DELETE * FROM " + table_name + "" , Program.con);
             command.ExecuteNonQuery();
             Program.con.Close();
         }
@@ -90,7 +88,7 @@ namespace Proje
             table = new DataTable();
             if (ConnectionState.Closed == Program.con.State)
             {
-                Program.con.Open();
+                dBConnect.OpenConnection();
             }
             adapter = new OleDbDataAdapter("Select * From " + table_name, Program.con);
             adapter.Fill(table);
@@ -113,16 +111,16 @@ namespace Proje
                 Program.con.Open();
             if (table == "Movies")
             {
-                DatabaseOperations.command = new OleDbCommand("Delete from " + table + " where IMDBID='" + pkey + "'", Program.con);
+                DatabaseOperations.command = new MySqlCommand("Delete from " + table + " where IMDBID='" + pkey + "'", Program.con);
                 command.ExecuteNonQuery();
             }
             else
             {
-                DatabaseOperations.command = new OleDbCommand("Delete from " + table + " where TITLE='" + pkey + "'", Program.con);
+                DatabaseOperations.command = new MySqlCommand("Delete from " + table + " where TITLE='" + pkey + "'", Program.con);
                 command.ExecuteNonQuery();
             }
         }
 
-        public string id { get; set; }
+       
     }
 }
