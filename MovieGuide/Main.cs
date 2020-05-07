@@ -10,19 +10,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 
-namespace Proje
+namespace MovieGuide
 {
     public partial class Main : Form
     {
+        //TODO: Client does not support authentication protocol requested by server; consider upgrading MySQL client
+        DBConnect dB = new DBConnect();
         OMDb ombd = new OMDb();
         FolderBrowserDialog browser = new FolderBrowserDialog();
         DatabaseOperations Db = new DatabaseOperations();
-        NotFound nf;
         public int s;
         DataGridViewCellEventArgs k;
 
         public Main()
         {
+            dB.OpenConnection();
             InitializeComponent();
             textBox_path.Text = StringLiterals.selecting_path;
             button_scan.Text = StringLiterals.scan;
@@ -74,11 +76,7 @@ namespace Proje
                 
             }
         }
-        private void button_couldntfound_Click(object sender, EventArgs e)
-        {
-            nf = new NotFound();
-            nf.Show();
-        }
+  
         private void button_search_Click(object sender, EventArgs e)
         {
             if (comboBox_column.Text == StringLiterals.title)

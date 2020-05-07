@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 using System.Data;
 using System.Data.OleDb;
 
-namespace Proje
+namespace MovieGuide
 {
     class OMDb
     {

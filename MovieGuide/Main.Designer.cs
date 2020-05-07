@@ -1,4 +1,4 @@
-﻿namespace Proje
+﻿namespace MovieGuide
 {
     partial class Main
     {
@@ -105,7 +105,7 @@
             this.button_couldntfound.TabIndex = 8;
             this.button_couldntfound.Text = "button2";
             this.button_couldntfound.UseVisualStyleBackColor = true;
-            this.button_couldntfound.Click += new System.EventHandler(this.button_couldntfound_Click);
+
             // 
             // button_search
             // 

@@ -9,14 +9,14 @@ using System.DirectoryServices;
 using MovieGuide;
 using MySql.Data.MySqlClient;
 
-namespace Proje
+namespace MovieGuide
 {
     class DatabaseOperations
     {
         public static DataTable table;
         public static string API;
         public DBConnect dBConnect = new DBConnect();
-        private MySqlCommand command;
+        public static MySqlCommand command;
         private MySqlDataReader reader;
 
         //veri tabanına ekleme yapan metot.
@@ -90,8 +90,7 @@ namespace Proje
             {
                 dBConnect.OpenConnection();
             }
-            adapter = new OleDbDataAdapter("Select * From " + table_name, Program.con);
-            adapter.Fill(table);
+
         }
         //Arama yapar.
         public void Search(string table_name, string search_text,string column)
@@ -101,9 +100,6 @@ namespace Proje
             {
                 Program.con.Open();
             }
-            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from " + table_name + " where " + column + " Like '" + search_text + "%'", Program.con);
-            //OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from " + table_name + " Like '" + search_text + "%'", Program.con);
-            adapter.Fill(table);
         }
         public void Delete(string table, string pkey)
         {

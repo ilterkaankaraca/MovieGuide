@@ -6,12 +6,14 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using MySql.Data.MySqlClient;
 
-namespace Proje
+namespace MovieGuide
 {
+
     static class Program
     {
         //Veritabanı bağlantısı kuruluyor.
-        public static MySqlConnection con = new MySqlConnection("SERVER=localhost; DATABASE=movie_guide;UID=movie_guide;PASSWORD=password;"); 
+        public static MySqlConnection con = new MySqlConnection("SERVER=localhost; DATABASE=movie_guide;UID=movie_guide;PASSWORD=password;");
+       
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -19,10 +21,9 @@ namespace Proje
         
         static void Main()
         {
-            Program.con.Open();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-           // Application.Run(new Main());
+            Application.Run(new Main());
         }
     }
 }
