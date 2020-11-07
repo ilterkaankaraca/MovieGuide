@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.datagridview_filmler = new System.Windows.Forms.DataGridView();
-            this.button_scan = new System.Windows.Forms.Button();
-            this.button_deleteall = new System.Windows.Forms.Button();
+            this.scanButton = new System.Windows.Forms.Button();
+            this.deleteAllButton = new System.Windows.Forms.Button();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.textBox_path = new System.Windows.Forms.TextBox();
-            this.label_status = new System.Windows.Forms.Label();
+            this.pathTextBoxPath = new System.Windows.Forms.TextBox();
+            this.statusLabel = new System.Windows.Forms.Label();
             this.textBox_search = new System.Windows.Forms.TextBox();
             this.button_couldntfound = new System.Windows.Forms.Button();
             this.button_search = new System.Windows.Forms.Button();
@@ -50,45 +50,46 @@
             this.datagridview_filmler.ReadOnly = true;
             this.datagridview_filmler.Size = new System.Drawing.Size(861, 509);
             this.datagridview_filmler.TabIndex = 1;
-            this.datagridview_filmler.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridview_filmler_CellClick);
+            this.datagridview_filmler.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DatagridViewMoviesCellClick);
+            this.datagridview_filmler.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridview_filmler_CellContentClick);
             // 
-            // button_scan
+            // scanButton
             // 
-            this.button_scan.Location = new System.Drawing.Point(717, 550);
-            this.button_scan.Name = "button_scan";
-            this.button_scan.Size = new System.Drawing.Size(75, 23);
-            this.button_scan.TabIndex = 2;
-            this.button_scan.Text = "button1";
-            this.button_scan.UseVisualStyleBackColor = true;
-            this.button_scan.Click += new System.EventHandler(this.button_scan_Click);
+            this.scanButton.Location = new System.Drawing.Point(717, 550);
+            this.scanButton.Name = "scanButton";
+            this.scanButton.Size = new System.Drawing.Size(75, 23);
+            this.scanButton.TabIndex = 2;
+            this.scanButton.Text = "button1";
+            this.scanButton.UseVisualStyleBackColor = true;
+            this.scanButton.Click += new System.EventHandler(this.ScanButtonClick);
             // 
-            // button_deleteall
+            // deleteAllButton
             // 
-            this.button_deleteall.Location = new System.Drawing.Point(798, 550);
-            this.button_deleteall.Name = "button_deleteall";
-            this.button_deleteall.Size = new System.Drawing.Size(75, 23);
-            this.button_deleteall.TabIndex = 3;
-            this.button_deleteall.Text = "button2";
-            this.button_deleteall.UseVisualStyleBackColor = true;
-            this.button_deleteall.Click += new System.EventHandler(this.button_deleteall_Click);
+            this.deleteAllButton.Location = new System.Drawing.Point(798, 550);
+            this.deleteAllButton.Name = "deleteAllButton";
+            this.deleteAllButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteAllButton.TabIndex = 3;
+            this.deleteAllButton.Text = "button2";
+            this.deleteAllButton.UseVisualStyleBackColor = true;
+            this.deleteAllButton.Click += new System.EventHandler(this.DeleteAllButtonClick);
             // 
-            // textBox_path
+            // pathTextBoxPath
             // 
-            this.textBox_path.Location = new System.Drawing.Point(12, 552);
-            this.textBox_path.Name = "textBox_path";
-            this.textBox_path.Size = new System.Drawing.Size(699, 20);
-            this.textBox_path.TabIndex = 4;
-            this.textBox_path.Click += new System.EventHandler(this.textBox_path_Click);
-            this.textBox_path.DoubleClick += new System.EventHandler(this.textBox_path_DoubleClick);
+            this.pathTextBoxPath.Location = new System.Drawing.Point(12, 552);
+            this.pathTextBoxPath.Name = "pathTextBoxPath";
+            this.pathTextBoxPath.Size = new System.Drawing.Size(699, 20);
+            this.pathTextBoxPath.TabIndex = 4;
+            this.pathTextBoxPath.Click += new System.EventHandler(this.textBox_path_Click);
+            this.pathTextBoxPath.DoubleClick += new System.EventHandler(this.PathTextBoxDoubleClick);
             // 
-            // label_status
+            // statusLabel
             // 
-            this.label_status.AutoSize = true;
-            this.label_status.Location = new System.Drawing.Point(9, 575);
-            this.label_status.Name = "label_status";
-            this.label_status.Size = new System.Drawing.Size(35, 13);
-            this.label_status.TabIndex = 5;
-            this.label_status.Text = "label1";
+            this.statusLabel.AutoSize = true;
+            this.statusLabel.Location = new System.Drawing.Point(9, 575);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(35, 13);
+            this.statusLabel.TabIndex = 5;
+            this.statusLabel.Text = "label1";
             // 
             // textBox_search
             // 
@@ -105,7 +106,7 @@
             this.button_couldntfound.TabIndex = 8;
             this.button_couldntfound.Text = "button2";
             this.button_couldntfound.UseVisualStyleBackColor = true;
-            this.button_couldntfound.Click += new System.EventHandler(this.button_couldntfound_Click);
+            this.button_couldntfound.Click += new System.EventHandler(this.NotFoundButtonClick);
             // 
             // button_search
             // 
@@ -138,15 +139,15 @@
             this.Controls.Add(this.button_search);
             this.Controls.Add(this.button_couldntfound);
             this.Controls.Add(this.textBox_search);
-            this.Controls.Add(this.label_status);
-            this.Controls.Add(this.textBox_path);
-            this.Controls.Add(this.button_deleteall);
-            this.Controls.Add(this.button_scan);
+            this.Controls.Add(this.statusLabel);
+            this.Controls.Add(this.pathTextBoxPath);
+            this.Controls.Add(this.deleteAllButton);
+            this.Controls.Add(this.scanButton);
             this.Controls.Add(this.datagridview_filmler);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Main";
             this.Text = "MovieGuide";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.datagridview_filmler)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -156,11 +157,11 @@
         #endregion
 
         private System.Windows.Forms.DataGridView datagridview_filmler;
-        private System.Windows.Forms.Button button_scan;
-        private System.Windows.Forms.Button button_deleteall;
+        private System.Windows.Forms.Button scanButton;
+        private System.Windows.Forms.Button deleteAllButton;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
-        private System.Windows.Forms.TextBox textBox_path;
-        private System.Windows.Forms.Label label_status;
+        private System.Windows.Forms.TextBox pathTextBoxPath;
+        private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.TextBox textBox_search;
         private System.Windows.Forms.Button button_couldntfound;
         private System.Windows.Forms.Button button_search;
