@@ -15,40 +15,7 @@ namespace Proje
         public static OleDbDataReader reader;
         public static OleDbDataAdapter adapter;
         public static DataTable table;
-        public static string API = "2bef03fb";
-        
-        //Kullanıcı bilgilerini kontrol eden metot.
-        
-        //Login Formu çağırıldığında hatırlanması istenen kullanıcı adının veri tabanından çekilmesine yarayan metot.
-        public string Remember()
-        {
-            if (ConnectionState.Closed == Program.databaseConnection.State)
-            {
-                Program.databaseConnection.Open();
-            }
-            command = new OleDbCommand("SELECT * FROM Users WHERE REMEMBERME= 'yes'",Program.databaseConnection);
-            reader = command.ExecuteReader();
-            if (reader.Read() == true)
-            {
-                return reader["ID"].ToString();
-            }
-            else
-                return null;
 
-        }
-        //Beni hatırla kutusu işaretlendiğinde bu metot çalışır ilgili kullanıcının "REMEMBERME" alanını yes diğerlerini no yapar.
-        public void Remember(string id)
-        {
-            if (ConnectionState.Closed == Program.databaseConnection.State)
-            {
-                Program.databaseConnection.Open();
-            }
-            command = new OleDbCommand("UPDATE Users SET REMEMBERME='no' WHERE REMEMBERME='yes'", Program.databaseConnection);
-            command.ExecuteNonQuery();
-            command = new OleDbCommand("UPDATE Users SET REMEMBERME='yes' WHERE ID ='" + id + "'", Program.databaseConnection);
-            command.ExecuteNonQuery();
-            Program.databaseConnection.Close();
-        }
         //veri tabanına ekleme yapan metot.
         public void Add(Movie movie)
         {
@@ -101,33 +68,6 @@ namespace Proje
             }
             Program.databaseConnection.Close();
         }
-        //Kullanıcı Ekleyen metot.
-        public bool Add(string id, string password, string api,string type)
-        {
-            if (ConnectionState.Closed == Program.databaseConnection.State)
-            {
-                Program.databaseConnection.Open();
-            }
-            command = new OleDbCommand("SELECT * FROM Users WHERE ID='"+id+"'",Program.databaseConnection);
-            reader = command.ExecuteReader();
-            if (reader.Read() == false)
-            {
-
-                command = new OleDbCommand("INSERT INTO Users([ID],[PASSWORD],[API],[TYPE],[REMEMBERME]) VALUES(@ID,@PASSWORD,@API,@REMEMBERME,@TYPE)", Program.databaseConnection);
-                command.Parameters.AddWithValue("@ID", id);
-                command.Parameters.AddWithValue("@PASSWORD", password);
-                command.Parameters.AddWithValue("@API", api);
-                command.Parameters.AddWithValue("@REMEMEBERME","no");
-                command.Parameters.AddWithValue("@TYPE", type);
-                command.ExecuteNonQuery();
-                return true;
-            }
-            else
-            {
-                Program.databaseConnection.Close();
-                return false;
-            }     
-        }
         //Tablodaki tüm verileri siler.
         public void DeleteAll(string table_name)
         {
@@ -178,6 +118,6 @@ namespace Proje
             }
         }
 
-        public string id { get; set; }
+        public string Id { get; set; }
     }
 }
