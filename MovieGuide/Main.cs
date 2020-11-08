@@ -113,7 +113,7 @@ namespace Proje
                 }
             }
         }
-        private void textBox_path_Click(object sender, EventArgs e)
+        private void PathTextBoxClick(object sender, EventArgs e)
         {
             if (pathTextBoxPath.Text == StringLiterals.selecting_path)
             {
@@ -121,7 +121,7 @@ namespace Proje
             }
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void BackGroudWorker1DoWork(object sender, DoWorkEventArgs e)
         {
             //Girilen stringin içinde :\ olup olmadığı kontrol ediliyor. Varsa dosya yolu yoksa film adı olarak işlem yapılıyor.
             if (browser.SelectedPath.IndexOf(":\\") != -1)
@@ -174,11 +174,6 @@ namespace Proje
                 statusLabel.ForeColor = Color.Red;
                 statusLabel.Text = StringLiterals.error_blank;
             }
-        }
-
-        private void datagridview_filmler_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }

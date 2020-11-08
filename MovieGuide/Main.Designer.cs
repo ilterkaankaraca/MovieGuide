@@ -51,7 +51,6 @@
             this.datagridview_filmler.Size = new System.Drawing.Size(861, 509);
             this.datagridview_filmler.TabIndex = 1;
             this.datagridview_filmler.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DatagridViewMoviesCellClick);
-            this.datagridview_filmler.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridview_filmler_CellContentClick);
             // 
             // scanButton
             // 
@@ -79,7 +78,7 @@
             this.pathTextBoxPath.Name = "pathTextBoxPath";
             this.pathTextBoxPath.Size = new System.Drawing.Size(699, 20);
             this.pathTextBoxPath.TabIndex = 4;
-            this.pathTextBoxPath.Click += new System.EventHandler(this.textBox_path_Click);
+            this.pathTextBoxPath.Click += new System.EventHandler(this.PathTextBoxClick);
             this.pathTextBoxPath.DoubleClick += new System.EventHandler(this.PathTextBoxDoubleClick);
             // 
             // statusLabel
@@ -128,7 +127,7 @@
             // 
             // backgroundWorker1
             // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackGroudWorker1DoWork);
             // 
             // Main
             // 
