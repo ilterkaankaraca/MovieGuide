@@ -108,16 +108,14 @@ namespace Proje
                 Program.databaseConnection.Open();
             if (table == "Movies")
             {
-                DatabaseOperations.command = new OleDbCommand("Delete from " + table + " where IMDBID='" + pkey + "'", Program.databaseConnection);
+                command = new OleDbCommand("Delete from " + table + " where IMDBID='" + pkey + "'", Program.databaseConnection);
                 command.ExecuteNonQuery();
             }
             else
             {
-                DatabaseOperations.command = new OleDbCommand("Delete from " + table + " where TITLE='" + pkey + "'", Program.databaseConnection);
+                command = new OleDbCommand("Delete from " + table + " where TITLE='" + pkey + "'", Program.databaseConnection);
                 command.ExecuteNonQuery();
             }
         }
-
-        public string Id { get; set; }
     }
 }

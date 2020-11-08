@@ -19,25 +19,25 @@ namespace Proje
         public Main()
         {
             InitializeComponent();
-            pathTextBoxPath.Text = StringLiterals.selecting_path;
+            pathTextBox.Text = StringLiterals.selecting_path;
             scanButton.Text = StringLiterals.scan;
             deleteAllButton.Text = StringLiterals.delete_all;
             statusLabel.Hide();
-            button_couldntfound.Text = StringLiterals.notfounds;
+            notFoundButton.Text = StringLiterals.notfounds;
             database.List("MOVIES");
-            datagridview_filmler.DataSource = DatabaseOperations.table;
+            moviesDataGridView.DataSource = DatabaseOperations.table;
             DatabaseOperations.table.AcceptChanges();
-            comboBox_column.Items.Add(StringLiterals.title);
-            comboBox_column.Items.Add(StringLiterals.year);
-            comboBox_column.Items.Add(StringLiterals.runtime);
-            comboBox_column.Items.Add(StringLiterals.genre);
-            comboBox_column.Items.Add(StringLiterals.actors);
-            comboBox_column.Items.Add(StringLiterals.director);
-            comboBox_column.Items.Add(StringLiterals.writer);
-            comboBox_column.Items.Add(StringLiterals.plot);
-            comboBox_column.Items.Add(StringLiterals.country);
-            comboBox_column.SelectedIndex = 0;
-            button_search.Text = StringLiterals.search;
+            searchByComboBox.Items.Add(StringLiterals.title);
+            searchByComboBox.Items.Add(StringLiterals.year);
+            searchByComboBox.Items.Add(StringLiterals.runtime);
+            searchByComboBox.Items.Add(StringLiterals.genre);
+            searchByComboBox.Items.Add(StringLiterals.actors);
+            searchByComboBox.Items.Add(StringLiterals.director);
+            searchByComboBox.Items.Add(StringLiterals.writer);
+            searchByComboBox.Items.Add(StringLiterals.plot);
+            searchByComboBox.Items.Add(StringLiterals.country);
+            searchByComboBox.SelectedIndex = 0;
+            searchButton.Text = StringLiterals.search;
         }
         private void ScanButtonClick(object sender, EventArgs e)
         {
@@ -46,9 +46,9 @@ namespace Proje
         }
         private void PathTextBoxDoubleClick(object sender, EventArgs e)
         {
-            pathTextBoxPath.Clear();
+            pathTextBox.Clear();
             browser.ShowDialog();
-            pathTextBoxPath.Text = browser.SelectedPath;
+            pathTextBox.Text = browser.SelectedPath;
         }
         private void DeleteAllButtonClick(object sender, EventArgs e)
         {
@@ -56,14 +56,14 @@ namespace Proje
             {
                 database.DeleteAll("Movies");
                 database.List("Movies");
-                datagridview_filmler.DataSource = DatabaseOperations.table;
+                moviesDataGridView.DataSource = DatabaseOperations.table;
                 DatabaseOperations.table.AcceptChanges();
             }
             else
             {
-                    database.Delete("Movies", datagridview_filmler.Rows[k.RowIndex].Cells[15].Value.ToString());
+                    database.Delete("Movies", moviesDataGridView.Rows[k.RowIndex].Cells[15].Value.ToString());
                     database.List("Movies");
-                    datagridview_filmler.DataSource = DatabaseOperations.table;
+                    moviesDataGridView.DataSource = DatabaseOperations.table;
                     DatabaseOperations.table.AcceptChanges();
                     deleteAllButton.Text = StringLiterals.delete_all;
                 
@@ -76,25 +76,25 @@ namespace Proje
         }
         private void button_search_Click(object sender, EventArgs e)
         {
-            if (comboBox_column.Text == StringLiterals.title)
-                database.Search("Movies", textBox_search.Text, "TITLE");
-            else if (comboBox_column.Text == StringLiterals.year)
-                database.Search("Movies", textBox_search.Text, "YEAR");
-            else if (comboBox_column.Text == StringLiterals.genre)
-                database.Search("Movies", textBox_search.Text, "GENRE");
-            else if (comboBox_column.Text == StringLiterals.actors)
-                database.Search("Movies", textBox_search.Text, "ACTORS");
-            else if (comboBox_column.Text == StringLiterals.director)
-                database.Search("Movies", textBox_search.Text, "DIRECTOR");
-            else if (comboBox_column.Text == StringLiterals.writer)
-                database.Search("Movies", textBox_search.Text, "WRITER");
-            else if (comboBox_column.Text == StringLiterals.plot)
-                database.Search("Movies", textBox_search.Text, "PLOT");
-            else if (comboBox_column.Text == StringLiterals.country)
-                database.Search("Movies", textBox_search.Text, "COUNTRY");
-            else if (comboBox_column.Text == StringLiterals.runtime)
-                database.Search("Movies", textBox_search.Text, "RUNTIME");
-            datagridview_filmler.DataSource = DatabaseOperations.table;
+            if (searchByComboBox.Text == StringLiterals.title)
+                database.Search("Movies", searchTextBox.Text, "TITLE");
+            else if (searchByComboBox.Text == StringLiterals.year)
+                database.Search("Movies", searchTextBox.Text, "YEAR");
+            else if (searchByComboBox.Text == StringLiterals.genre)
+                database.Search("Movies", searchTextBox.Text, "GENRE");
+            else if (searchByComboBox.Text == StringLiterals.actors)
+                database.Search("Movies", searchTextBox.Text, "ACTORS");
+            else if (searchByComboBox.Text == StringLiterals.director)
+                database.Search("Movies", searchTextBox.Text, "DIRECTOR");
+            else if (searchByComboBox.Text == StringLiterals.writer)
+                database.Search("Movies", searchTextBox.Text, "WRITER");
+            else if (searchByComboBox.Text == StringLiterals.plot)
+                database.Search("Movies", searchTextBox.Text, "PLOT");
+            else if (searchByComboBox.Text == StringLiterals.country)
+                database.Search("Movies", searchTextBox.Text, "COUNTRY");
+            else if (searchByComboBox.Text == StringLiterals.runtime)
+                database.Search("Movies", searchTextBox.Text, "RUNTIME");
+            moviesDataGridView.DataSource = DatabaseOperations.table;
             DatabaseOperations.table.AcceptChanges();
         }
         private void MainFormClosing(object sender, FormClosingEventArgs e)
@@ -115,9 +115,9 @@ namespace Proje
         }
         private void PathTextBoxClick(object sender, EventArgs e)
         {
-            if (pathTextBoxPath.Text == StringLiterals.selecting_path)
+            if (pathTextBox.Text == StringLiterals.selecting_path)
             {
-                pathTextBoxPath.Clear();
+                pathTextBox.Clear();
             }
         }
 
@@ -126,14 +126,14 @@ namespace Proje
             //Girilen stringin içinde :\ olup olmadığı kontrol ediliyor. Varsa dosya yolu yoksa film adı olarak işlem yapılıyor.
             if (browser.SelectedPath.IndexOf(":\\") != -1)
             {
-                if (Directory.Exists(pathTextBoxPath.Text))
+                if (Directory.Exists(pathTextBox.Text))
                 {
                     if (OMDb.isConnectionOK())
                     {
                         ombd.Scan(browser.SelectedPath);
                         statusLabel.Hide();
                         database.List("Movies");
-                        datagridview_filmler.DataSource = DatabaseOperations.table;
+                        moviesDataGridView.DataSource = DatabaseOperations.table;
                         DatabaseOperations.table.AcceptChanges();
                     }
                     else
@@ -151,14 +151,14 @@ namespace Proje
                     statusLabel.Text = StringLiterals.path_incorrect;
                 }
             }
-            else if (pathTextBoxPath.Text.Length != 0)
+            else if (pathTextBox.Text.Length != 0)
             {
-                if (ombd.ScanviaID(pathTextBoxPath.Text))
+                if (ombd.ScanviaID(pathTextBox.Text))
                 {
-                    pathTextBoxPath.Clear();
+                    pathTextBox.Clear();
                     statusLabel.Hide();
                     database.List("Movies");
-                    datagridview_filmler.DataSource = DatabaseOperations.table;
+                    moviesDataGridView.DataSource = DatabaseOperations.table;
                     DatabaseOperations.table.AcceptChanges();
                 }
                 else
