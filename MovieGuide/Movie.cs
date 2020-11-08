@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Proje
 {
     class Movie
-    {
-        public string Title, Rated, Released, Runtime, Genre, Actors, Plot, Director, Writer, Language, Country, Awards, imdbRating, imdbVotes,imdbID, Year;
+    {   public int year, genre, actors, director, writer, rated, language, country;
+        public string title, rated, runtime, genre, actors, plot, awards, imdbRating, imdbVotes, imdbId;
     }
 }
