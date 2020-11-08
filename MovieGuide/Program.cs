@@ -10,7 +10,7 @@ namespace Proje
     static class Program
     {
         //Veritabanı bağlantısı kuruluyor.
-        public static OleDbConnection con = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0; Data Source=MovieGuideDb.accdb"); 
+        public static OleDbConnection databaseConnection = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0; Data Source=MovieGuideDb.accdb"); 
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

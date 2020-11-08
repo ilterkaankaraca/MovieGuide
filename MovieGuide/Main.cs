@@ -11,7 +11,7 @@ namespace Proje
         private string id;
         OMDb ombd = new OMDb();
         FolderBrowserDialog browser = new FolderBrowserDialog();
-        Database database = new Database();
+        DatabaseOperations database = new DatabaseOperations();
         NotFound notFound;
         public int s;
         DataGridViewCellEventArgs k;
@@ -24,9 +24,9 @@ namespace Proje
             deleteAllButton.Text = StringLiterals.delete_all;
             statusLabel.Hide();
             button_couldntfound.Text = StringLiterals.notfounds;
-            database.List("Movies");
-            datagridview_filmler.DataSource = Database.table;
-            Database.table.AcceptChanges();
+            database.List("MOVIES");
+            datagridview_filmler.DataSource = DatabaseOperations.table;
+            DatabaseOperations.table.AcceptChanges();
             comboBox_column.Items.Add(StringLiterals.title);
             comboBox_column.Items.Add(StringLiterals.year);
             comboBox_column.Items.Add(StringLiterals.runtime);
@@ -56,15 +56,15 @@ namespace Proje
             {
                 database.DeleteAll("Movies");
                 database.List("Movies");
-                datagridview_filmler.DataSource = Database.table;
-                Database.table.AcceptChanges();
+                datagridview_filmler.DataSource = DatabaseOperations.table;
+                DatabaseOperations.table.AcceptChanges();
             }
             else
             {
                     database.Delete("Movies", datagridview_filmler.Rows[k.RowIndex].Cells[15].Value.ToString());
                     database.List("Movies");
-                    datagridview_filmler.DataSource = Database.table;
-                    Database.table.AcceptChanges();
+                    datagridview_filmler.DataSource = DatabaseOperations.table;
+                    DatabaseOperations.table.AcceptChanges();
                     deleteAllButton.Text = StringLiterals.delete_all;
                 
             }
@@ -94,8 +94,8 @@ namespace Proje
                 database.Search("Movies", textBox_search.Text, "COUNTRY");
             else if (comboBox_column.Text == StringLiterals.runtime)
                 database.Search("Movies", textBox_search.Text, "RUNTIME");
-            datagridview_filmler.DataSource = Database.table;
-            Database.table.AcceptChanges();
+            datagridview_filmler.DataSource = DatabaseOperations.table;
+            DatabaseOperations.table.AcceptChanges();
         }
         private void MainFormClosing(object sender, FormClosingEventArgs e)
         {
@@ -133,8 +133,8 @@ namespace Proje
                         ombd.Scan(browser.SelectedPath);
                         statusLabel.Hide();
                         database.List("Movies");
-                        datagridview_filmler.DataSource = Database.table;
-                        Database.table.AcceptChanges();
+                        datagridview_filmler.DataSource = DatabaseOperations.table;
+                        DatabaseOperations.table.AcceptChanges();
                     }
                     else
                     {
@@ -158,8 +158,8 @@ namespace Proje
                     pathTextBoxPath.Clear();
                     statusLabel.Hide();
                     database.List("Movies");
-                    datagridview_filmler.DataSource = Database.table;
-                    Database.table.AcceptChanges();
+                    datagridview_filmler.DataSource = DatabaseOperations.table;
+                    DatabaseOperations.table.AcceptChanges();
                 }
                 else
                 {

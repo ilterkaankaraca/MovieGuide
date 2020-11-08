@@ -9,7 +9,7 @@ using System.DirectoryServices;
 
 namespace Proje
 {
-    class Database
+    class DatabaseOperations
     {
         public static OleDbCommand command;
         public static OleDbDataReader reader;
@@ -22,11 +22,11 @@ namespace Proje
         //Login Formu çağırıldığında hatırlanması istenen kullanıcı adının veri tabanından çekilmesine yarayan metot.
         public string Remember()
         {
-            if (ConnectionState.Closed == Program.con.State)
+            if (ConnectionState.Closed == Program.databaseConnection.State)
             {
-                Program.con.Open();
+                Program.databaseConnection.Open();
             }
-            command = new OleDbCommand("SELECT * FROM Users WHERE REMEMBERME= 'yes'",Program.con);
+            command = new OleDbCommand("SELECT * FROM Users WHERE REMEMBERME= 'yes'",Program.databaseConnection);
             reader = command.ExecuteReader();
             if (reader.Read() == true)
             {
@@ -39,28 +39,28 @@ namespace Proje
         //Beni hatırla kutusu işaretlendiğinde bu metot çalışır ilgili kullanıcının "REMEMBERME" alanını yes diğerlerini no yapar.
         public void Remember(string id)
         {
-            if (ConnectionState.Closed == Program.con.State)
+            if (ConnectionState.Closed == Program.databaseConnection.State)
             {
-                Program.con.Open();
+                Program.databaseConnection.Open();
             }
-            command = new OleDbCommand("UPDATE Users SET REMEMBERME='no' WHERE REMEMBERME='yes'", Program.con);
+            command = new OleDbCommand("UPDATE Users SET REMEMBERME='no' WHERE REMEMBERME='yes'", Program.databaseConnection);
             command.ExecuteNonQuery();
-            command = new OleDbCommand("UPDATE Users SET REMEMBERME='yes' WHERE ID ='" + id + "'", Program.con);
+            command = new OleDbCommand("UPDATE Users SET REMEMBERME='yes' WHERE ID ='" + id + "'", Program.databaseConnection);
             command.ExecuteNonQuery();
-            Program.con.Close();
+            Program.databaseConnection.Close();
         }
         //veri tabanına ekleme yapan metot.
         public void Add(Movie movie)
         {
-            if (ConnectionState.Closed == Program.con.State)
+            if (ConnectionState.Closed == Program.databaseConnection.State)
             {
-                Program.con.Open();
+                Program.databaseConnection.Open();
             }
-            command = new OleDbCommand("SELECT * FROM Movies WHERE IMDBID='"+movie.imdbID+"'",Program.con);
+            command = new OleDbCommand("SELECT * FROM Movies WHERE IMDBID='"+movie.imdbID+"'",Program.databaseConnection);
             reader = command.ExecuteReader();
             if (reader.Read()==false)
             {
-                command = new OleDbCommand("INSERT INTO Movies([TITLE], [YEAR], [RATED], [RELEASED], [RUNTIME], [GENRE], [ACTORS], [PLOT], [DIRECTOR], [WRITER], [LANGUAGE], [COUNTRY], [AWARDS], [IMDBRATING], [IMDBVOTES], [IMDBID]) VALUES (@Title, @Year, @Rated, @Released, @Runtime, @Genre, @Actors, @Plot, @Director, @Writer, @Language, @Country, @Awards, @imdbRating, @imdbVotes, @imdbID)", Program.con);
+                command = new OleDbCommand("INSERT INTO Movies([TITLE], [YEAR], [RATED], [RELEASED], [RUNTIME], [GENRE], [ACTORS], [PLOT], [DIRECTOR], [WRITER], [LANGUAGE], [COUNTRY], [AWARDS], [IMDBRATING], [IMDBVOTES], [IMDBID]) VALUES (@Title, @Year, @Rated, @Released, @Runtime, @Genre, @Actors, @Plot, @Director, @Writer, @Language, @Country, @Awards, @imdbRating, @imdbVotes, @imdbID)", Program.databaseConnection);
                 command.Parameters.AddWithValue("@Title", movie.Title);
                 command.Parameters.AddWithValue("@Year", movie.Year);
                 command.Parameters.AddWithValue("@Rated", movie.Rated);
@@ -79,41 +79,41 @@ namespace Proje
                 command.Parameters.AddWithValue("@imdbID", movie.imdbID);
                 command.ExecuteNonQuery();
             }
-            Program.con.Close();
+            Program.databaseConnection.Close();
                 
         }
         //Bulunamayan filmlerin dosya yolunu ve adını bir tabloya kaydeden program
         public void Add(string path)
         {
-            if (ConnectionState.Closed == Program.con.State)
+            if (ConnectionState.Closed == Program.databaseConnection.State)
             {
-                Program.con.Open();
+                Program.databaseConnection.Open();
             }
             string title = path.Remove(0, path.LastIndexOf("\\") + 1);
             title = title.Replace("'", "");
-            command = new OleDbCommand("SELECT * FROM NotFound WHERE TITLE='"+title+"'",Program.con);
+            command = new OleDbCommand("SELECT * FROM NotFound WHERE TITLE='"+title+"'",Program.databaseConnection);
             reader = command.ExecuteReader();
             if (reader.Read()==false)
             {
-                command = new OleDbCommand("INSERT INTO NotFound([TITLE]) VALUES(@TITLE)", Program.con);
+                command = new OleDbCommand("INSERT INTO NotFound([TITLE]) VALUES(@TITLE)", Program.databaseConnection);
                 command.Parameters.AddWithValue("@TITLE", title);
                 command.ExecuteNonQuery();
             }
-            Program.con.Close();
+            Program.databaseConnection.Close();
         }
         //Kullanıcı Ekleyen metot.
         public bool Add(string id, string password, string api,string type)
         {
-            if (ConnectionState.Closed == Program.con.State)
+            if (ConnectionState.Closed == Program.databaseConnection.State)
             {
-                Program.con.Open();
+                Program.databaseConnection.Open();
             }
-            command = new OleDbCommand("SELECT * FROM Users WHERE ID='"+id+"'",Program.con);
+            command = new OleDbCommand("SELECT * FROM Users WHERE ID='"+id+"'",Program.databaseConnection);
             reader = command.ExecuteReader();
             if (reader.Read() == false)
             {
 
-                command = new OleDbCommand("INSERT INTO Users([ID],[PASSWORD],[API],[TYPE],[REMEMBERME]) VALUES(@ID,@PASSWORD,@API,@REMEMBERME,@TYPE)", Program.con);
+                command = new OleDbCommand("INSERT INTO Users([ID],[PASSWORD],[API],[TYPE],[REMEMBERME]) VALUES(@ID,@PASSWORD,@API,@REMEMBERME,@TYPE)", Program.databaseConnection);
                 command.Parameters.AddWithValue("@ID", id);
                 command.Parameters.AddWithValue("@PASSWORD", password);
                 command.Parameters.AddWithValue("@API", api);
@@ -124,56 +124,56 @@ namespace Proje
             }
             else
             {
-                Program.con.Close();
+                Program.databaseConnection.Close();
                 return false;
             }     
         }
         //Tablodaki tüm verileri siler.
         public void DeleteAll(string table_name)
         {
-            if (ConnectionState.Closed == Program.con.State)
+            if (ConnectionState.Closed == Program.databaseConnection.State)
             {
-                Program.con.Open();
+                Program.databaseConnection.Open();
             }
-            command = new OleDbCommand("DELETE * FROM " + table_name + "" , Program.con);
+            command = new OleDbCommand("DELETE * FROM " + table_name + "" , Program.databaseConnection);
             command.ExecuteNonQuery();
-            Program.con.Close();
+            Program.databaseConnection.Close();
         }
         //Listeler.       
         public void List(string table_name)
         {
             table = new DataTable();
-            if (ConnectionState.Closed == Program.con.State)
+            if (ConnectionState.Closed == Program.databaseConnection.State)
             {
-                Program.con.Open();
+                Program.databaseConnection.Open();
             }
-            adapter = new OleDbDataAdapter("Select * From " + table_name, Program.con);
+            adapter = new OleDbDataAdapter("Select * From " + table_name, Program.databaseConnection);
             adapter.Fill(table);
         }
         //Arama yapar.
         public void Search(string table_name, string search_text,string column)
         {
             table = new DataTable();
-            if (ConnectionState.Closed == Program.con.State)
+            if (ConnectionState.Closed == Program.databaseConnection.State)
             {
-                Program.con.Open();
+                Program.databaseConnection.Open();
             }
-            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from " + table_name + " where " + column + " Like '" + search_text + "%'", Program.con);
+            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from " + table_name + " where " + column + " Like '" + search_text + "%'", Program.databaseConnection);
             //OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from " + table_name + " Like '" + search_text + "%'", Program.con);
             adapter.Fill(table);
         }
         public void Delete(string table, string pkey)
         {
-            if (ConnectionState.Closed == Program.con.State)
-                Program.con.Open();
+            if (ConnectionState.Closed == Program.databaseConnection.State)
+                Program.databaseConnection.Open();
             if (table == "Movies")
             {
-                Database.command = new OleDbCommand("Delete from " + table + " where IMDBID='" + pkey + "'", Program.con);
+                DatabaseOperations.command = new OleDbCommand("Delete from " + table + " where IMDBID='" + pkey + "'", Program.databaseConnection);
                 command.ExecuteNonQuery();
             }
             else
             {
-                Database.command = new OleDbCommand("Delete from " + table + " where TITLE='" + pkey + "'", Program.con);
+                DatabaseOperations.command = new OleDbCommand("Delete from " + table + " where TITLE='" + pkey + "'", Program.databaseConnection);
                 command.ExecuteNonQuery();
             }
         }
