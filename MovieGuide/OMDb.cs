@@ -1,27 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
-using Newtonsoft.Json.Linq;
 using System.IO;
 using Newtonsoft.Json;
-using System.Data;
-using System.Data.OleDb;
 
 namespace Proje
 {
     class OMDb
     {
-        DatabaseOperations Db = new DatabaseOperations();
+        
+        DatabaseOperations database = new DatabaseOperations();
+        private string Api = File.ReadAllText(@"api.txt");
         //API kullanarak film bilgilerini alan metot.
-        private string getInformation(string movie_title)
+        private string GetInformation(string movie_title)
         {
             string json;
             using (WebClient wc = new WebClient())
             {
-                json = wc.DownloadString("http://www.omdbapi.com/?t=" + movie_title + "&apikey=" + DatabaseOperations.API);
+                json = wc.DownloadString("http://www.omdbapi.com/?t=" + movie_title + "&apikey=" + Api);
             }
             return json;
         }
@@ -29,7 +24,7 @@ namespace Proje
         public void Deserialize(string json)
         {
             Movie movie = JsonConvert.DeserializeObject<Movie>(json);
-            Db.Add(movie);
+            database.Add(movie);
         }
         //dosyaları tarayan ve film isimlerini alan metot.
         public void Scan(string path)
@@ -45,7 +40,7 @@ namespace Proje
                     {
                         if (!Parse(array[k].Remove(0, array[k].LastIndexOf("\\") + 1)))
                         {
-                            Db.Add(array[k]);
+                            database.Add(array[k]);
                         }
                     }
                 }
@@ -81,9 +76,9 @@ namespace Proje
         public bool Parse(string raw_title)
         {
             int digit = 0;
-            if (getInformation(raw_title)[2] != 'R')
+            if (GetInformation(raw_title)[2] != 'R')
             {
-                Deserialize(getInformation(raw_title));
+                Deserialize(GetInformation(raw_title));
                 return true;
             }
             else
@@ -97,9 +92,9 @@ namespace Proje
                         {
                             raw_title = raw_title.Substring(0, i - 1);
                             raw_title = raw_title.Replace('.', ' ');
-                            if (getInformation(raw_title)[2] != 'R')
+                            if (GetInformation(raw_title)[2] != 'R')
                             {
-                                Deserialize(getInformation(raw_title));
+                                Deserialize(GetInformation(raw_title));
                                 return true;
                             }
                             else
