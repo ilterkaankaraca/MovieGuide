@@ -15,7 +15,22 @@ namespace Proje
         public static OleDbDataReader reader;
         public static OleDbDataAdapter adapter;
         public static DataTable table;
-
+        
+    	public void Connect()
+        {
+            if (ConnectionState.Closed == Program.databaseConnection.State)
+            {
+                Program.databaseConnection.Open();
+            }
+        }
+        
+        public void Disconnect()
+        {
+            if (ConnectionState.Opened == Program.databaseConnection.State)
+            {
+                Program.databaseConnection.Close();
+            }
+        }
         //veri tabanına ekleme yapan metot.
         public void Add(Movie movie)
         {
