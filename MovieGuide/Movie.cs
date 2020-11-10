@@ -8,6 +8,6 @@ namespace Proje
 {
     class Movie
     {   public int year, genre, actors, director, writer, rated, language, country;
-        public string title, rated, runtime, genre, actors, plot, awards, imdbRating, imdbVotes, imdbId;
+        public string title, runtime, plot, awards, imdbRating, imdbVotes, imdbId;
     }
 }
