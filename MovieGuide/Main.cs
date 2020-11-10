@@ -49,6 +49,8 @@ namespace Proje
             pathTextBox.Clear();
             browser.ShowDialog();
             pathTextBox.Text = browser.SelectedPath;
+            pathTextBox.SelectionStart = pathTextBox.Text.Length;
+            pathTextBox.SelectionLength = 0;
         }
         private void DeleteAllButtonClick(object sender, EventArgs e)
         {
