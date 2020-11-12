@@ -8,22 +8,21 @@ namespace Proje
 {
     public partial class Main : Form
     {
-        private string id;
         OMDb ombd = new OMDb();
         FolderBrowserDialog browser = new FolderBrowserDialog();
         DatabaseOperations database = new DatabaseOperations();
         NotFound notFound;
         public int s;
-        DataGridViewCellEventArgs k;
+        DataGridViewCellEventArgs selectedRow;
 
         public Main()
         {
             InitializeComponent();
-            pathTextBox.Text = StringLiterals.selecting_path;
+            pathTextBox.Text = StringLiterals.selectPath;
             scanButton.Text = StringLiterals.scan;
-            deleteAllButton.Text = StringLiterals.delete_all;
+            deleteAllButton.Text = StringLiterals.deleteAll;
             statusLabel.Hide();
-            notFoundButton.Text = StringLiterals.notfounds;
+            notFoundButton.Text = StringLiterals.notFound;
             database.List("MOVIES");
             moviesDataGridView.DataSource = DatabaseOperations.table;
             DatabaseOperations.table.AcceptChanges();
@@ -54,7 +53,7 @@ namespace Proje
         }
         private void DeleteAllButtonClick(object sender, EventArgs e)
         {
-            if (deleteAllButton.Text == StringLiterals.delete_all)
+            if (deleteAllButton.Text == StringLiterals.deleteAll)
             {
                 database.DeleteAll("Movies");
                 database.List("Movies");
@@ -63,11 +62,11 @@ namespace Proje
             }
             else
             {
-                    database.Delete("Movies", moviesDataGridView.Rows[k.RowIndex].Cells[15].Value.ToString());
+                    database.Delete("Movies", moviesDataGridView.Rows[selectedRow.RowIndex].Cells[15].Value.ToString());
                     database.List("Movies");
                     moviesDataGridView.DataSource = DatabaseOperations.table;
                     DatabaseOperations.table.AcceptChanges();
-                    deleteAllButton.Text = StringLiterals.delete_all;
+                    deleteAllButton.Text = StringLiterals.deleteAll;
                 
             }
         }
@@ -109,7 +108,7 @@ namespace Proje
             {
                 if (e.RowIndex >= 0)
                 {
-                    k = e;
+                    selectedRow = e;
                     deleteAllButton.Text = StringLiterals.delete;
 
                 }
@@ -117,7 +116,7 @@ namespace Proje
         }
         private void PathTextBoxClick(object sender, EventArgs e)
         {
-            if (pathTextBox.Text == StringLiterals.selecting_path)
+            if (pathTextBox.Text == StringLiterals.selectPath)
             {
                 pathTextBox.Clear();
             }
@@ -142,7 +141,7 @@ namespace Proje
                     {
                         statusLabel.Show();
                         statusLabel.ForeColor = Color.Red;
-                        statusLabel.Text = StringLiterals.connection_issue;
+                        statusLabel.Text = StringLiterals.connectionIssue;
                     }
 
                 }
@@ -150,7 +149,7 @@ namespace Proje
                 {
                     statusLabel.Show();
                     statusLabel.ForeColor = Color.Red;
-                    statusLabel.Text = StringLiterals.path_incorrect;
+                    statusLabel.Text = StringLiterals.incorrectPath;
                 }
             }
             else if (pathTextBox.Text.Length != 0)
@@ -167,14 +166,14 @@ namespace Proje
                 {
                     statusLabel.Show();
                     statusLabel.ForeColor = Color.Red;
-                    statusLabel.Text = StringLiterals.notfound;
+                    statusLabel.Text = StringLiterals.notFound;
                 }
             }
             else
             {
                 statusLabel.Show();
                 statusLabel.ForeColor = Color.Red;
-                statusLabel.Text = StringLiterals.error_blank;
+                statusLabel.Text = StringLiterals.errorBlank;
             }
         }
     }
