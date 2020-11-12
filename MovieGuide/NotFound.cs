@@ -22,12 +22,12 @@ namespace Proje
             dataGridView_notfound.DataSource = DatabaseOperations.table;
             DatabaseOperations.table.AcceptChanges();
             dataGridView_notfound.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            button_deleteall.Text = StringLiterals.delete_all;
+            button_deleteall.Text = StringLiterals.deleteAll;
         }
 
         private void button_deleteall_Click(object sender, EventArgs e)
         {
-            if (button_deleteall.Text == StringLiterals.delete_all)
+            if (button_deleteall.Text == StringLiterals.deleteAll)
             {
                 Db.DeleteAll("NotFound");
                 Db.List("NotFound");
@@ -40,7 +40,7 @@ namespace Proje
                 Db.List("NotFound");
                 dataGridView_notfound.DataSource = DatabaseOperations.table;
                 DatabaseOperations.table.AcceptChanges();
-                button_deleteall.Text = StringLiterals.delete_all;
+                button_deleteall.Text = StringLiterals.deleteAll;
             }
         }
 

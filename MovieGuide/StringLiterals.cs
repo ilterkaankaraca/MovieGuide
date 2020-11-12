@@ -15,7 +15,7 @@ namespace Proje
         public static string sure = "Emin Misiniz?";
         public static string ok = "Tamam";
         public static string cancel = "İptal";
-        public static string pathIncorrect = "Girilen Dosya Yolu Hatalı";
+        public static string incorrectPath = "Girilen Dosya Yolu Hatalı";
         public static string connectionIssue = "İnternet Bağlantısı Sorunu";
         public static string notFounds = "Bulunamayanlar";
         public static string title = "Başlık";
@@ -31,8 +31,8 @@ namespace Proje
         public static string awards = "Ödüller";
         public static string path = "Yol";
         public static string search = "Ara";
-        public static string error_blank = "Boş Bırakılamaz";
-        public static string notfound = "Bulunamadı";
+        public static string errorBlank = "Boş Bırakılamaz";
+        public static string notFound = "Bulunamadı";
         public static string delete = "Sil";
         public static string selectPath = "Dosya Yolu Seçmek İçin İki Kere Tıklayınız";
     }
