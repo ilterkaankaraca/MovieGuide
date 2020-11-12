@@ -36,11 +36,11 @@ namespace Proje
         public void Add(Movie movie)
         {
             Connect();
-            command = new OleDbCommand("SELECT * FROM Movies WHERE IMDBID='"+movie.imdbId+"'",Program.databaseConnection);
+            command = new OleDbCommand("SELECT * FROM MOVIES WHERE IMDB_ID='"+movie.imdbId+"'",Program.databaseConnection);
             reader = command.ExecuteReader();
             if (reader.Read()==false)
             {
-                command = new OleDbCommand("INSERT INTO Movies([TITLE], [YEAR], [RATED], [RUNTIME], [GENRE], [ACTORS], [PLOT], [DIRECTOR], [WRITER], [LANGUAGE], [COUNTRY], [AWARDS], [IMDBRATING], [IMDBVOTES], [IMDBID]) VALUES (@Title, @Year, @Rated, @Runtime, @Genre, @Actors, @Plot, @Director, @Writer, @Language, @Country, @Awards, @imdbRating, @imdbVotes, @imdbID)", Program.databaseConnection);
+                command = new OleDbCommand("INSERT INTO MOVIES([TITLE], [YEAR], [RATED], [RUNTIME], [GENRE], [ACTORS], [PLOT], [DIRECTOR], [WRITER], [LANGUAGE], [COUNTRY], [AWARDS], [IMDB_RATING], [IMDB_VOTES], [IMDB_ID]) VALUES (@Title, @Year, @Rated, @Runtime, @Genre, @Actors, @Plot, @Director, @Writer, @Language, @Country, @Awards, @imdbRating, @imdbVotes, @imdbID)", Program.databaseConnection);
                 command.Parameters.AddWithValue("@Title", movie.title);
                 command.Parameters.AddWithValue("@Year", movie.year);
                 command.Parameters.AddWithValue("@Rated", movie.rated);
