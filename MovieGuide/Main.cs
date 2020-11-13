@@ -38,11 +38,6 @@ namespace Proje
             searchByComboBox.SelectedIndex = 0;
             searchButton.Text = StringLiterals.search;
         }
-        private void ScanButtonClick(object sender, EventArgs e)
-        {
-            
-            backgroundWorker1.RunWorkerAsync();
-        }
         private void PathTextBoxDoubleClick(object sender, EventArgs e)
         {
             pathTextBox.Clear();
@@ -122,7 +117,7 @@ namespace Proje
             }
         }
 
-        private void BackGroudWorker1DoWork(object sender, DoWorkEventArgs e)
+        private void ScanButtonClick(object sender, EventArgs e)
         {
             //Girilen stringin içinde :\ olup olmadığı kontrol ediliyor. Varsa dosya yolu yoksa film adı olarak işlem yapılıyor.
             if (browser.SelectedPath.IndexOf(":\\") != -1)
