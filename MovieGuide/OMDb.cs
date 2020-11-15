@@ -3,7 +3,7 @@ using System.Net;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace Proje
+namespace MovieGuide
 {
     class OMDb
     {
@@ -20,6 +20,7 @@ namespace Proje
             }
             return json;
         }
+
         //Gelen Json stringini deserialize ederek bir movie nesnesine yazan metot.
         public void Deserialize(string json)
         {
@@ -53,9 +54,7 @@ namespace Proje
                 return true;
             else
                 return false;
-            
         }
-        public void Scan() { }
         //İnternet bağlantısını kontrol eden metot
         public static bool isConnectionOK()
         {

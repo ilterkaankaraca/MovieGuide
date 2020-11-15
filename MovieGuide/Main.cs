@@ -4,7 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace Proje
+namespace MovieGuide
 {
     public partial class Main : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace Proje
+﻿namespace MovieGuide
 {
     partial class Main
     {

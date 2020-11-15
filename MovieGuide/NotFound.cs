@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Proje
+namespace MovieGuide
 {
     public partial class NotFound : Form
     {
