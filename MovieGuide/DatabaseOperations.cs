@@ -8,7 +8,7 @@ using System.Data;
 using System.DirectoryServices;
 using System.Security.Authentication;
 
-namespace Proje
+namespace MovieGuide
 {
     class DatabaseOperations
     {
@@ -32,8 +32,39 @@ namespace Proje
                 Program.databaseConnection.Close();
             }
         }
-        //veri tabanına ekleme yapan metot.
+        private void Add(List<String> actors)
+        {
+            Connect();
+            //command = new OleDbCommand("SELECT ")
+            //Work in progress
+            Disconnect();
+        }
+
+        private int CreateLTEntry(string table, string value)
+        {
+            int id=-1;
+            Connect();
+            command = new OleDbCommand("INSERT INTO "+table+"([CODE]) VALUES(@Value)", Program.databaseConnection);
+            command.Parameters.AddWithValue("@Title", value);
+            command.ExecuteNonQuery();
+            command = new OleDbCommand("SELECT ID FROM " + table + " WHERE IMDB_ID='" + value + "'", Program.databaseConnection);
+            id=(int)command.ExecuteScalar();
+            Disconnect();
+            return id;
+        }
+
         public void Add(Movie movie)
+        {
+            int a = 0;
+            //Add Movie Body
+            //Add actors if they are not there create new(another function(tum lookup tablolari tek fonksiyonla doldurulabilir(string, tablo_adi)))
+            //Add Rated from Rate table
+            //Add Genre(tamamen static imdbnin sitesinden alinabilir)
+            //Add Director
+            
+        }
+        //veri tabanına ekleme yapan metot.
+        private void AddBody(Movie movie)
         {
             Connect();
             command = new OleDbCommand("SELECT * FROM MOVIES WHERE IMDB_ID='"+movie.imdbId+"'",Program.databaseConnection);
