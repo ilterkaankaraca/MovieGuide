@@ -20,7 +20,7 @@ namespace MovieGuide
         public static string notFounds = "Bulunamayanlar";
         public static string title = "Başlık";
         public static string imdbRating = "Puan";
-        public static string year="Yıl";
+        public static string year = "Yıl";
         public static string runtime = "Süre";
         public static string genre = "Tür";
         public static string actors = "Oyuncular";
