@@ -10,7 +10,7 @@ using System.Security.Authentication;
 
 namespace MovieGuide
 {
-    class DatabaseOperations
+    public class DatabaseOperations
     {
         public static OleDbCommand command;
         public static OleDbDataReader reader;
@@ -32,7 +32,7 @@ namespace MovieGuide
                 Program.databaseConnection.Close();
             }
         }
-        private void Add(List<String> actors)
+        public void Add(string actors)
         {
             Connect();
             //command = new OleDbCommand("SELECT ")
@@ -40,20 +40,20 @@ namespace MovieGuide
             Disconnect();
         }
 
-        private int CreateLTEntry(string table, string value)
+        public int CreateLTEntry(string table, string value)
         {
             int id = -1;
             Connect();
             command = new OleDbCommand("INSERT INTO " + table + "([CODE]) VALUES(@Value)", Program.databaseConnection);
             command.Parameters.AddWithValue("@Title", value);
             command.ExecuteNonQuery();
-            command = new OleDbCommand("SELECT ID FROM " + table + " WHERE IMDB_ID='" + value + "'", Program.databaseConnection);
+            command = new OleDbCommand("SELECT ID FROM " + table + " WHERE CODE='" + value + "'", Program.databaseConnection);
             id = (int)command.ExecuteScalar();
             Disconnect();
             return id;
         }
 
-        public void Add(Movie movie)
+        public void Add(Movie movie) // this will change
         {
             int a = 0;
             //Add Movie Body
@@ -93,7 +93,7 @@ namespace MovieGuide
 
         }
         //Bulunamayan filmlerin dosya yolunu ve adını bir tabloya kaydeden program
-        public void Add(string path)
+        public void Add1(string path)
         {
             Connect();
             string title = path.Remove(0, path.LastIndexOf("\\") + 1);
