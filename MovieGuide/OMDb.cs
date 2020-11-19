@@ -11,22 +11,16 @@ namespace MovieGuide
         DatabaseOperations database = new DatabaseOperations();
         private string Api = File.ReadAllText(@"api.txt");
         //API kullanarak film bilgilerini alan metot.
-        private string GetInformation(string movie_title)
+        private Movie GetMovie(string movieTitle)
         {
             string json;
             using (WebClient wc = new WebClient())
             {
-                json = wc.DownloadString("http://www.omdbapi.com/?t=" + movie_title + "&apikey=" + Api);
+                json = wc.DownloadString("http://www.omdbapi.com/?t=" + movieTitle + "&apikey=" + Api);
             }
-            return json;
+            return JsonConvert.DeserializeObject<Movie>(json);
         }
 
-        //Gelen Json stringini deserialize ederek bir movie nesnesine yazan metot.
-        public void Deserialize(string json)
-        {
-            Movie movie = JsonConvert.DeserializeObject<Movie>(json);
-            database.Add(movie);
-        }
         //dosyaları tarayan ve film isimlerini alan metot.
         public void Scan(string path)
         {
@@ -56,7 +50,7 @@ namespace MovieGuide
                 return false;
         }
         //İnternet bağlantısını kontrol eden metot
-        public static bool isConnectionOK()
+        public static bool IsConnectionOK()
         {
             try
             {
@@ -75,9 +69,9 @@ namespace MovieGuide
         public bool Parse(string raw_title)
         {
             int digit = 0;
-            if (GetInformation(raw_title)[2] != 'R')
+            if (GetMovie(raw_title) != null)
             {
-                Deserialize(GetInformation(raw_title));
+                GetMovie(raw_title);
                 return true;
             }
             else
@@ -91,9 +85,9 @@ namespace MovieGuide
                         {
                             raw_title = raw_title.Substring(0, i - 1);
                             raw_title = raw_title.Replace('.', ' ');
-                            if (GetInformation(raw_title)[2] != 'R')
+                            if (GetMovie(raw_title)!=null)
                             {
-                                Deserialize(GetInformation(raw_title));
+                                GetMovie(raw_title);
                                 return true;
                             }
                             else
@@ -112,5 +106,6 @@ namespace MovieGuide
         }
     }
 }
+
 
 

@@ -16,20 +16,20 @@ namespace MovieGuide
         public static OleDbDataReader reader;
         public static OleDbDataAdapter adapter;
         public static DataTable table;
-
+        public static OleDbConnection databaseConnection = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0; Data Source=C:\repos\MovieGuide\MovieGuide\bin\Debug\MovieGuideDb.accdb");
         public void Connect()
         {
-            if (ConnectionState.Closed == Program.databaseConnection.State)
+            if (ConnectionState.Closed == databaseConnection.State)
             {
-                Program.databaseConnection.Open();
+                databaseConnection.Open();
             }
         }
 
         public void Disconnect()
         {
-            if (ConnectionState.Open == Program.databaseConnection.State)
+            if (ConnectionState.Open == databaseConnection.State)
             {
-                Program.databaseConnection.Close();
+                 databaseConnection.Close();
             }
         }
         public void Add(string actors)
@@ -44,10 +44,10 @@ namespace MovieGuide
         {
             int id = -1;
             Connect();
-            command = new OleDbCommand("INSERT INTO " + table + "([CODE]) VALUES(@Value)", Program.databaseConnection);
+            command = new OleDbCommand("INSERT INTO " + table + "([CODE]) VALUES(@Value)",  databaseConnection);
             command.Parameters.AddWithValue("@Title", value);
             command.ExecuteNonQuery();
-            command = new OleDbCommand("SELECT ID FROM " + table + " WHERE CODE='" + value + "'", Program.databaseConnection);
+            command = new OleDbCommand("SELECT ID FROM " + table + " WHERE CODE='" + value + "'",  databaseConnection);
             id = (int)command.ExecuteScalar();
             Disconnect();
             return id;
@@ -67,11 +67,11 @@ namespace MovieGuide
         private void AddBody(Movie movie)
         {
             Connect();
-            command = new OleDbCommand("SELECT * FROM MOVIES WHERE IMDB_ID='" + movie.imdbId + "'", Program.databaseConnection);
+            command = new OleDbCommand("SELECT * FROM MOVIES WHERE IMDB_ID='" + movie.imdbId + "'",  databaseConnection);
             reader = command.ExecuteReader();
             if (reader.Read() == false)
             {
-                command = new OleDbCommand("INSERT INTO MOVIES([TITLE], [YEAR], [RATED], [RUNTIME], [GENRE], [ACTORS], [PLOT], [DIRECTOR], [WRITER], [LANGUAGE], [COUNTRY], [AWARDS], [IMDB_RATING], [IMDB_VOTES], [IMDB_ID]) VALUES (@Title, @Year, @Rated, @Runtime, @Genre, @Actors, @Plot, @Director, @Writer, @Language, @Country, @Awards, @imdbRating, @imdbVotes, @imdbID)", Program.databaseConnection);
+                command = new OleDbCommand("INSERT INTO MOVIES([TITLE], [YEAR], [RATED], [RUNTIME], [GENRE], [ACTORS], [PLOT], [DIRECTOR], [WRITER], [LANGUAGE], [COUNTRY], [AWARDS], [IMDB_RATING], [IMDB_VOTES], [IMDB_ID]) VALUES (@Title, @Year, @Rated, @Runtime, @Genre, @Actors, @Plot, @Director, @Writer, @Language, @Country, @Awards, @imdbRating, @imdbVotes, @imdbID)",  databaseConnection);
                 command.Parameters.AddWithValue("@Title", movie.title);
                 command.Parameters.AddWithValue("@Year", movie.year);
                 command.Parameters.AddWithValue("@Rated", movie.rated);
@@ -98,11 +98,11 @@ namespace MovieGuide
             Connect();
             string title = path.Remove(0, path.LastIndexOf("\\") + 1);
             title = title.Replace("'", "");
-            command = new OleDbCommand("SELECT * FROM NotFound WHERE TITLE='" + title + "'", Program.databaseConnection);
+            command = new OleDbCommand("SELECT * FROM NotFound WHERE TITLE='" + title + "'",  databaseConnection);
             reader = command.ExecuteReader();
             if (reader.Read() == false)
             {
-                command = new OleDbCommand("INSERT INTO NotFound([TITLE]) VALUES(@TITLE)", Program.databaseConnection);
+                command = new OleDbCommand("INSERT INTO NotFound([TITLE]) VALUES(@TITLE)",  databaseConnection);
                 command.Parameters.AddWithValue("@TITLE", title);
                 command.ExecuteNonQuery();
             }
@@ -112,7 +112,7 @@ namespace MovieGuide
         public void DeleteAll(string table_name)
         {
             Connect();
-            command = new OleDbCommand("DELETE * FROM " + table_name + "", Program.databaseConnection);
+            command = new OleDbCommand("DELETE * FROM " + table_name + "",  databaseConnection);
             command.ExecuteNonQuery();
             Disconnect();
         }
@@ -121,7 +121,7 @@ namespace MovieGuide
         {
             table = new DataTable();
             Connect();
-            adapter = new OleDbDataAdapter("Select * From " + table_name, Program.databaseConnection);
+            adapter = new OleDbDataAdapter("Select * From " + table_name,  databaseConnection);
             adapter.Fill(table);
             Disconnect();
         }
@@ -130,8 +130,8 @@ namespace MovieGuide
         {
             table = new DataTable();
             Connect();
-            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from " + table_name + " where " + column + " Like '" + search_text + "%'", Program.databaseConnection);
-            //OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from " + table_name + " Like '" + search_text + "%'", Program.con);
+            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from " + table_name + " where " + column + " Like '" + search_text + "%'",  databaseConnection);
+            //OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from " + table_name + " Like '" + search_text + "%'",  con);
             adapter.Fill(table);
             Disconnect();
         }
@@ -140,12 +140,12 @@ namespace MovieGuide
             Connect();
             if (table == "Movies")
             {
-                command = new OleDbCommand("Delete from " + table + " where IMDBID='" + pkey + "'", Program.databaseConnection);
+                command = new OleDbCommand("Delete from " + table + " where IMDBID='" + pkey + "'",  databaseConnection);
                 command.ExecuteNonQuery();
             }
             else
             {
-                command = new OleDbCommand("Delete from " + table + " where TITLE='" + pkey + "'", Program.databaseConnection);
+                command = new OleDbCommand("Delete from " + table + " where TITLE='" + pkey + "'",  databaseConnection);
                 command.ExecuteNonQuery();
             }
             Disconnect();

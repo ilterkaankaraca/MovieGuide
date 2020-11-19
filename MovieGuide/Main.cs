@@ -125,7 +125,7 @@ namespace MovieGuide
             {
                 if (Directory.Exists(pathTextBox.Text))
                 {
-                    if (OMDb.isConnectionOK())
+                    if (OMDb.IsConnectionOK())
                     {
                         ombd.Scan(browser.SelectedPath);
                         statusLabel.Hide();
@@ -172,5 +172,5 @@ namespace MovieGuide
                 statusLabel.Text = StringLiterals.errorBlank;
             }
         }
-    }
-}
+            }
+        }
