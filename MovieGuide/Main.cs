@@ -70,8 +70,9 @@ namespace MovieGuide
             notFound = new NotFound();
             notFound.Show();
         }
-        private void button_search_Click(object sender, EventArgs e)
+        private void SearchButtonClick(object sender, EventArgs e)
         {
+            // bunu daha dinamik hale getirmek lazim
             if (searchByComboBox.Text == StringLiterals.title)
                 database.Search("Movies", searchTextBox.Text, "TITLE");
             else if (searchByComboBox.Text == StringLiterals.year)

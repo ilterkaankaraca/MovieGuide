@@ -122,7 +122,7 @@
             this.searchButton.TabIndex = 9;
             this.searchButton.Text = "button1";
             this.searchButton.UseVisualStyleBackColor = true;
-            this.searchButton.Click += new System.EventHandler(this.button_search_Click);
+            this.searchButton.Click += new System.EventHandler(this.SearchButtonClick);
             // 
             // searchByComboBox
             // 
