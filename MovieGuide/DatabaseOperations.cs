@@ -56,6 +56,7 @@ namespace MovieGuide
         public void Add(Movie movie) // this will change
         {
             int a = 0;
+            a = a+0;
             //Add Movie Body
             //Add actors if they are not there create new(another function(tum lookup tablolari tek fonksiyonla doldurulabilir(string, tablo_adi)))
             //Add Rated from Rate table

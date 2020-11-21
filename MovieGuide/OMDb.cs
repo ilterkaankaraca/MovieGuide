@@ -68,7 +68,9 @@ namespace MovieGuide
         //İsimleri temizleyen metot.
         public bool Parse(string raw_title)
         {
+
             int digit = 0;
+            //buralari duzelt
             if (GetMovie(raw_title) != null)
             {
                 GetMovie(raw_title);
@@ -85,6 +87,7 @@ namespace MovieGuide
                         {
                             raw_title = raw_title.Substring(0, i - 1);
                             raw_title = raw_title.Replace('.', ' ');
+                            //buralari duzelt
                             if (GetMovie(raw_title)!=null)
                             {
                                 GetMovie(raw_title);
