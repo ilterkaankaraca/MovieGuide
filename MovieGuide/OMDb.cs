@@ -1,7 +1,7 @@
-﻿using System;
-using System.Net;
+﻿using Newtonsoft.Json;
+using System;
 using System.IO;
-using Newtonsoft.Json;
+using System.Net;
 
 namespace MovieGuide
 {
@@ -10,7 +10,9 @@ namespace MovieGuide
 
         DatabaseOperations database = new DatabaseOperations();
         private string Api = File.ReadAllText(@"api.txt");
+
         //API kullanarak film bilgilerini alan metot.
+
         private Movie GetMovie(string movieTitle)
         {
             string json;
@@ -88,7 +90,7 @@ namespace MovieGuide
                             raw_title = raw_title.Substring(0, i - 1);
                             raw_title = raw_title.Replace('.', ' ');
                             //buralari duzelt
-                            if (GetMovie(raw_title)!=null)
+                            if (GetMovie(raw_title) != null)
                             {
                                 GetMovie(raw_title);
                                 return true;
@@ -109,6 +111,5 @@ namespace MovieGuide
         }
     }
 }
-
 
 

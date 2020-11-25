@@ -1,4 +1,3 @@
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MovieGuide;
 using System.Data.OleDb;
@@ -8,7 +7,7 @@ namespace MovieGuideUnitTest
     [TestClass]
     public class DatabaseOperationsTests
     {
-        
+
         [TestMethod]
         public void CreateNewLTEntry()
         {
