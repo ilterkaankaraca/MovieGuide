@@ -25,14 +25,6 @@ namespace MovieGuide
                 databaseConnection.Close();
             }
         }
-        public void Add(string actors)
-        {
-            Connect();
-            //command = new OleDbCommand("SELECT ")
-            //Work in progress
-            Disconnect();
-        }
-
         public int CreateLTEntry(string table, string value)
         {
             int id = -1;
@@ -45,7 +37,16 @@ namespace MovieGuide
             Disconnect();
             return id;
         }
-
+        public void AddActor(string actors)
+        {
+            Connect();
+            //command = new OleDbCommand("SELECT ")
+            //Aktor tabloda var mi kontrol et yoksa ekle varsa sadece kullan 
+            //eklenen veya bulunan aktorun idsini al
+            //eklenen filmin idsi ile 
+            //Work in progress
+            Disconnect();
+        }
         public void Add(Movie movie) // this will change
         {
             int a = 0;
@@ -58,7 +59,7 @@ namespace MovieGuide
 
         }
         //veri tabanına ekleme yapan metot.
-        private void AddBody(Movie movie)
+        public void AddBody(Movie movie)
         {
             Connect();
             command = new OleDbCommand("SELECT * FROM MOVIES WHERE IMDB_ID='" + movie.imdbId + "'", databaseConnection);

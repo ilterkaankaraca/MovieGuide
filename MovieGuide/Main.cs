@@ -119,37 +119,10 @@ namespace MovieGuide
 
         private void ScanButtonClick(object sender, EventArgs e)
         {
-            //Girilen stringin içinde :\ olup olmadığı kontrol ediliyor. Varsa dosya yolu yoksa film adı olarak işlem yapılıyor.
-            if (browser.SelectedPath.IndexOf(":\\") != -1)
-            {
-                if (Directory.Exists(pathTextBox.Text))
-                {
-                    if (OMDb.IsConnectionOK())
-                    {
-                        ombd.Scan(browser.SelectedPath);
-                        statusLabel.Hide();
-                        database.List("Movies");
-                        moviesDataGridView.DataSource = DatabaseOperations.table;
-                        DatabaseOperations.table.AcceptChanges();
-                    }
-                    else
-                    {
-                        statusLabel.Show();
-                        statusLabel.ForeColor = Color.Red;
-                        statusLabel.Text = StringLiterals.connectionIssue;
-                    }
 
-                }
-                else
-                {
-                    statusLabel.Show();
-                    statusLabel.ForeColor = Color.Red;
-                    statusLabel.Text = StringLiterals.incorrectPath;
-                }
-            }
-            else if (pathTextBox.Text.Length != 0)
+            if (pathTextBox.Text.Length != 0)
             {
-                if (ombd.ScanviaID(pathTextBox.Text))
+                if (ombd.List(pathTextBox.Text))
                 {
                     pathTextBox.Clear();
                     statusLabel.Hide();
