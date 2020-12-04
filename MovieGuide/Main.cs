@@ -122,7 +122,7 @@ namespace MovieGuide
 
             if (pathTextBox.Text.Length != 0)
             {
-                if (ombd.List(pathTextBox.Text))
+                if (ombd.List(pathTextBox.Text)==1)
                 {
                     pathTextBox.Clear();
                     statusLabel.Hide();
