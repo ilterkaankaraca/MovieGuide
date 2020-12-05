@@ -24,6 +24,7 @@ namespace MovieGuide
                 return null;
             else if(json[4] == 'T')
                 return JsonConvert.DeserializeObject<Movie>(json);
+            return null;
         }
 
         //dosyaları tarayan ve film isimlerini alan metot.
@@ -49,59 +50,59 @@ namespace MovieGuide
         }
         public int List(string str)
         {
-            //Girilen stringin içinde :\ olup olmadığı kontrol ediliyor. Varsa dosya yolu yoksa film adı olarak işlem yapılıyor.
-            if (str.IndexOf(":\\") != -1)
-            {
-                if (Directory.Exists(str))
-                {
-                    if (OMDb.IsConnectionOK())
-                    {
-                        // bilgileri al 
-                    }
-                    else
-                    {
-                        statusLabel.Show();
-                        statusLabel.ForeColor = Color.Red;
-                        statusLabel.Text = StringLiterals.connectionIssue;
-                    }
+            ////Girilen stringin içinde :\ olup olmadığı kontrol ediliyor. Varsa dosya yolu yoksa film adı olarak işlem yapılıyor.
+            //if (str.IndexOf(":\\") != -1)
+            //{
+            //    if (Directory.Exists(str))
+            //    {
+            //        if (OMDb.IsConnectionOK())
+            //        {
+            //            // bilgileri al 
+            //        }
+            //        else
+            //        {
+            //            statusLabel.Show();
+            //            statusLabel.ForeColor = Color.Red;
+            //            statusLabel.Text = StringLiterals.connectionIssue;
+            //        }
 
-                }
-                else
-                {
-                    statusLabel.Show();
-                    statusLabel.ForeColor = Color.Red;
-                    statusLabel.Text = StringLiterals.incorrectPath;
-                }
-            }
-            else if (pathTextBox.Text.Length != 0)
-            {
-                if (ombd.ScanviaID(pathTextBox.Text))
-                {
-                    pathTextBox.Clear();
-                    statusLabel.Hide();
-                    database.List("Movies");
-                    moviesDataGridView.DataSource = DatabaseOperations.table;
-                    DatabaseOperations.table.AcceptChanges();
-                }
-                else
-                {
-                    statusLabel.Show();
-                    statusLabel.ForeColor = Color.Red;
-                    statusLabel.Text = StringLiterals.notFound;
-                }
-            }
-            else
-            {
-                statusLabel.Show();
-                statusLabel.ForeColor = Color.Red;
-                statusLabel.Text = StringLiterals.errorBlank;
-            }
-            
+            //    }
+            //    else
+            //    {
+            //        statusLabel.Show();
+            //        statusLabel.ForeColor = Color.Red;
+            //        statusLabel.Text = StringLiterals.incorrectPath;
+            //    }
+            //}
+            //else if (pathTextBox.Text.Length != 0)
+            //{
+            //    if (ombd.ScanviaID(pathTextBox.Text))
+            //    {
+            //        pathTextBox.Clear();
+            //        statusLabel.Hide();
+            //        database.List("Movies");
+            //        moviesDataGridView.DataSource = DatabaseOperations.table;
+            //        DatabaseOperations.table.AcceptChanges();
+            //    }
+            //    else
+            //    {
+            //        statusLabel.Show();
+            //        statusLabel.ForeColor = Color.Red;
+            //        statusLabel.Text = StringLiterals.notFound;
+            //    }
+            //}
+            //else
+            //{
+            //    statusLabel.Show();
+            //    statusLabel.ForeColor = Color.Red;
+            //    statusLabel.Text = StringLiterals.errorBlank;
+            //}
+            return 0;
         }
-        public bool ScanviaID()
+        public bool ScanviaID(string id )
         {
             Movie movie = GetMovie(id);
-            Parse(movie);
+           // Parse(movie);
 
             if (Parse(id))
                 return true;
