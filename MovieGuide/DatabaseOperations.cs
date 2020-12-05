@@ -95,7 +95,7 @@ namespace MovieGuide
             title = title.Replace("'", "");
             command = new OleDbCommand("SELECT * FROM NotFound WHERE TITLE='" + title + "'", databaseConnection);
             reader = command.ExecuteReader();
-            if (reader.Read() == false)
+            if (!reader.Read())
             {
                 command = new OleDbCommand("INSERT INTO NotFound([TITLE]) VALUES(@TITLE)", databaseConnection);
                 command.Parameters.AddWithValue("@TITLE", title);
