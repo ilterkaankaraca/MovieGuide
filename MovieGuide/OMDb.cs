@@ -102,7 +102,7 @@ namespace MovieGuide
         public bool ScanviaID(string id )
         {
             Movie movie = GetMovie(id);
-           // Parse(movie);
+           
 
             if (Parse(id))
                 return true;

@@ -433,3 +433,4 @@ scripts/patches/*license*.txt
 !scripts/patches/debug_web.sh
 !scripts/patches/postgres.sh
 gherkin-features/
+.vs/MovieGuide/v16/.suo
