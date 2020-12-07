@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace MovieGuide
@@ -11,7 +10,7 @@ namespace MovieGuide
         FolderBrowserDialog browser = new FolderBrowserDialog();
         DatabaseOperations database = new DatabaseOperations();
         NotFound notFound;
-        public int s;
+        private int s;
         DataGridViewCellEventArgs selectedRow;
 
         public Main()
@@ -99,14 +98,10 @@ namespace MovieGuide
         }
         private void DatagridViewMoviesCellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (s == 0)
+            if (s == 0 &&e.RowIndex >= 0))
             {
-                if (e.RowIndex >= 0)
-                {
                     selectedRow = e;
                     deleteAllButton.Text = StringLiterals.delete;
-
-                }
             }
         }
         private void PathTextBoxClick(object sender, EventArgs e)
