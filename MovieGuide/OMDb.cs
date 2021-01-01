@@ -18,7 +18,7 @@ namespace MovieGuide
             string json;
             using (WebClient wc = new WebClient())
             {
-                json = wc.DownloadString("http://www.omdbapi.com/?t=" + movieTitle + "&apikey=" + Api);
+                json = wc.DownloadString("https://www.omdbapi.com/?t=" + movieTitle + "&apikey=" + Api);
             }
             if (json[2] == 'R')
                 return null;
@@ -116,7 +116,7 @@ namespace MovieGuide
             try
             {
                 using (var client = new WebClient())
-                using (client.OpenRead("http://www.omdbapi.com"))
+                using (client.OpenRead("https://www.omdbapi.com"))
                 {
                     return true;
                 }
