@@ -51,7 +51,7 @@ namespace MovieGuide
         {
             int a = 0;
             a = 5+a;
-            //Add Movie Body
+            AddBody(movie);
             //Add actors if they are not there create new(another function(tum lookup tablolari tek fonksiyonla doldurulabilir(string, tablo_adi)))
             //Add Rated from Rate table
             //Add Genre(tamamen static imdbnin sitesinden alinabilir)
@@ -66,18 +66,19 @@ namespace MovieGuide
             reader = command.ExecuteReader();
             if (reader.Read() == false)
             {
-                command = new OleDbCommand("INSERT INTO MOVIES([TITLE], [YEAR], [RATED], [RUNTIME], [GENRE], [ACTORS], [PLOT], [DIRECTOR], [WRITER], [LANGUAGE], [COUNTRY], [AWARDS], [IMDB_RATING], [IMDB_VOTES], [IMDB_ID]) VALUES (@Title, @Year, @Rated, @Runtime, @Genre, @Actors, @Plot, @Director, @Writer, @Language, @Country, @Awards, @imdbRating, @imdbVotes, @imdbID)", databaseConnection);
+                //command = new OleDbCommand("INSERT INTO MOVIES([TITLE], [YEAR], [RATED], [RUNTIME], [GENRE], [ACTORS], [PLOT], [DIRECTOR], [WRITER], [LANGUAGE], [COUNTRY], [AWARDS], [IMDB_RATING], [IMDB_VOTES], [IMDB_ID]) VALUES (@Title, @Year, @Rated, @Runtime, @Genre, @Actors, @Plot, @Director, @Writer, @Language, @Country, @Awards, @imdbRating, @imdbVotes, @imdbID)", databaseConnection);
+                command = new OleDbCommand("INSERT INTO MOVIES([TITLE], [YEAR], [RUNTIME], [PLOT], [AWARDS], [IMDB_RATING], [IMDB_VOTES], [IMDB_ID]) VALUES (@Title, @Year, @Runtime, @Plot, @Awards, @imdbRating, @imdbVotes, @imdbID)", databaseConnection);
                 command.Parameters.AddWithValue("@Title", movie.title);
                 command.Parameters.AddWithValue("@Year", movie.year);
-                command.Parameters.AddWithValue("@Rated", movie.rated);
+                //command.Parameters.AddWithValue("@Rated", movie.rated);
                 command.Parameters.AddWithValue("@Runtime", movie.runtime);
-                command.Parameters.AddWithValue("@Genre", movie.genre);
-                command.Parameters.AddWithValue("@Actors", movie.actors);
+                //command.Parameters.AddWithValue("@Genre", movie.genre);
+                //command.Parameters.AddWithValue("@Actors", movie.actors);
                 command.Parameters.AddWithValue("@Plot", movie.plot);
-                command.Parameters.AddWithValue("@Director", movie.director);
-                command.Parameters.AddWithValue("@Writer", movie.writer);
-                command.Parameters.AddWithValue("@Language", movie.language);
-                command.Parameters.AddWithValue("@Country", movie.country);
+                //command.Parameters.AddWithValue("@Director", movie.director);
+                //command.Parameters.AddWithValue("@Writer", movie.writer);
+                //command.Parameters.AddWithValue("@Language", movie.language);
+                //command.Parameters.AddWithValue("@Country", movie.country);
                 command.Parameters.AddWithValue("@Awards", movie.awards);
                 command.Parameters.AddWithValue("@imdbRating", movie.imdbRating);
                 command.Parameters.AddWithValue("@imdbVotes", movie.imdbVotes);

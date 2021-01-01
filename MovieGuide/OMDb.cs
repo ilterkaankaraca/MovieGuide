@@ -20,9 +20,9 @@ namespace MovieGuide
             {
                 json = wc.DownloadString("http://www.omdbapi.com/?t=" + movieTitle + "&apikey=" + Api);
             }
-            if (json[4] == 'R')
+            if (json[2] == 'R')
                 return null;
-            else if(json[4] == 'T')
+            else if(json[2] == 'T')
                 return JsonConvert.DeserializeObject<Movie>(json);
             return null;
         }
@@ -39,10 +39,11 @@ namespace MovieGuide
                 {
                     if (array[k].IndexOf(".avi") != -1 && array[k].IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1 || array[k].IndexOf(".mp4") != -1 && array[k].IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1 || array[k].IndexOf(".mkv") != -1 && array[k].IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1 || array[k].IndexOf(".ts") != -1 && array[k].IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1)
                     {
-                        //if (!Parse(array[k].Remove(0, array[k].LastIndexOf("\\") + 1)))
-                        //{
-                        //    database.Add(array[k]);
-                        //}
+                        if (!Parse(array[k].Remove(0, array[k].LastIndexOf("\\") + 1)))
+                        {
+                            
+                            //database.AddBody(GetMovie(array[k]));
+                        }
                     }
                 }
             }
@@ -50,34 +51,34 @@ namespace MovieGuide
         }
         public int List(string str)
         {
-            ////Girilen stringin içinde :\ olup olmadığı kontrol ediliyor. Varsa dosya yolu yoksa film adı olarak işlem yapılıyor.
-            //if (str.IndexOf(":\\") != -1)
-            //{
-            //    if (Directory.Exists(str))
-            //    {
-            //        if (OMDb.IsConnectionOK())
-            //        {
-            //            // bilgileri al 
-            //        }
-            //        else
-            //        {
-            //            statusLabel.Show();
-            //            statusLabel.ForeColor = Color.Red;
-            //            statusLabel.Text = StringLiterals.connectionIssue;
-            //        }
+            //Girilen stringin içinde :\ olup olmadığı kontrol ediliyor. Varsa dosya yolu yoksa film adı olarak işlem yapılıyor.
+            if (str.IndexOf(":\\") != -1)
+            {
+                if (Directory.Exists(str))
+                {
+                    if (OMDb.IsConnectionOK())
+                    {
+                        Scan(str);
+                    }
+                    else
+                    {
+                        //statusLabel.Show();
+                        //statusLabel.ForeColor = Color.Red;
+                        //statusLabel.Text = StringLiterals.connectionIssue;
+                    }
 
-            //    }
-            //    else
-            //    {
-            //        statusLabel.Show();
-            //        statusLabel.ForeColor = Color.Red;
-            //        statusLabel.Text = StringLiterals.incorrectPath;
-            //    }
-            //}
-            //else if (pathTextBox.Text.Length != 0)
-            //{
-            //    if (ombd.ScanviaID(pathTextBox.Text))
-            //    {
+                }
+                else
+                {
+                    //statusLabel.Show();
+                    //statusLabel.ForeColor = Color.Red;
+                    //statusLabel.Text = StringLiterals.incorrectPath;
+                }
+            }
+            else if (str.Length != 0)
+            {
+                if (ScanviaID(str))
+                {
             //        pathTextBox.Clear();
             //        statusLabel.Hide();
             //        database.List("Movies");
@@ -90,13 +91,13 @@ namespace MovieGuide
             //        statusLabel.ForeColor = Color.Red;
             //        statusLabel.Text = StringLiterals.notFound;
             //    }
-            //}
+            }
             //else
             //{
             //    statusLabel.Show();
             //    statusLabel.ForeColor = Color.Red;
             //    statusLabel.Text = StringLiterals.errorBlank;
-            //}
+            }
             return 0;
         }
         public bool ScanviaID(string id )
@@ -130,9 +131,9 @@ namespace MovieGuide
         {
             int digit = 0;
             //buralari duzelt
-            if (GetMovie(raw_title)  != null)
+            if (GetMovie(raw_title)!= null)
             {
-                GetMovie(raw_title);
+                database.AddBody(GetMovie(raw_title));
                 return true;
             }
             else
@@ -149,7 +150,7 @@ namespace MovieGuide
                             //buralari duzelt
                             if (GetMovie(raw_title) != null)
                             {
-                                GetMovie(raw_title);
+                                database.AddBody(GetMovie(raw_title));
                                 return true;
                             }
                             else

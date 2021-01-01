@@ -48,15 +48,15 @@ namespace MovieGuide
         {
             if (deleteAllButton.Text == StringLiterals.deleteAll)
             {
-                database.DeleteAll("Movies");
-                database.List("Movies");
+                database.DeleteAll("MOVIES");
+                database.List("MOVIES");
                 moviesDataGridView.DataSource = DatabaseOperations.table;
                 DatabaseOperations.table.AcceptChanges();
             }
             else
             {
-                database.Delete("Movies", moviesDataGridView.Rows[selectedRow.RowIndex].Cells[15].Value.ToString());
-                database.List("Movies");
+                database.Delete("MOVIES", moviesDataGridView.Rows[selectedRow.RowIndex].Cells[15].Value.ToString());
+                database.List("MOVIES");
                 moviesDataGridView.DataSource = DatabaseOperations.table;
                 DatabaseOperations.table.AcceptChanges();
                 deleteAllButton.Text = StringLiterals.deleteAll;
@@ -72,23 +72,23 @@ namespace MovieGuide
         {
             // bunu daha dinamik hale getirmek lazim
             if (searchByComboBox.Text == StringLiterals.title)
-                database.Search("Movies", searchTextBox.Text, "TITLE");
+                database.Search("MOVIES", searchTextBox.Text, "TITLE");
             else if (searchByComboBox.Text == StringLiterals.year)
-                database.Search("Movies", searchTextBox.Text, "YEAR");
+                database.Search("MOVIES", searchTextBox.Text, "YEAR");
             else if (searchByComboBox.Text == StringLiterals.genre)
-                database.Search("Movies", searchTextBox.Text, "GENRE");
+                database.Search("MOVIES", searchTextBox.Text, "GENRE");
             else if (searchByComboBox.Text == StringLiterals.actors)
-                database.Search("Movies", searchTextBox.Text, "ACTORS");
+                database.Search("MOVIES", searchTextBox.Text, "ACTORS");
             else if (searchByComboBox.Text == StringLiterals.director)
-                database.Search("Movies", searchTextBox.Text, "DIRECTOR");
+                database.Search("MOVIES", searchTextBox.Text, "DIRECTOR");
             else if (searchByComboBox.Text == StringLiterals.writer)
-                database.Search("Movies", searchTextBox.Text, "WRITER");
+                database.Search("MOVIES", searchTextBox.Text, "WRITER");
             else if (searchByComboBox.Text == StringLiterals.plot)
-                database.Search("Movies", searchTextBox.Text, "PLOT");
+                database.Search("MOVIES", searchTextBox.Text, "PLOT");
             else if (searchByComboBox.Text == StringLiterals.country)
-                database.Search("Movies", searchTextBox.Text, "COUNTRY");
+                database.Search("MOVIES", searchTextBox.Text, "COUNTRY");
             else if (searchByComboBox.Text == StringLiterals.runtime)
-                database.Search("Movies", searchTextBox.Text, "RUNTIME");
+                database.Search("MOVIES", searchTextBox.Text, "RUNTIME");
             moviesDataGridView.DataSource = DatabaseOperations.table;
             DatabaseOperations.table.AcceptChanges();
         }
@@ -121,7 +121,7 @@ namespace MovieGuide
                 {
                     pathTextBox.Clear();
                     statusLabel.Hide();
-                    database.List("Movies");
+                    database.List("MOVIES");
                     moviesDataGridView.DataSource = DatabaseOperations.table;
                     DatabaseOperations.table.AcceptChanges();
                 }
