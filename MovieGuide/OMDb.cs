@@ -7,19 +7,19 @@ namespace MovieGuide
 {
     class OMDb
     {
-
-        DatabaseOperations database = new DatabaseOperations();
-        private string Api = File.ReadAllText(@"api.txt");
+        readonly DatabaseOperations database = new DatabaseOperations();
+        private readonly string api = File.ReadAllText(@"api.txt");
 
         //API kullanarak film bilgilerini alan metot.
 
-        private Movie GetMovie(string movieTitle)
+        private Movie GetMovieInfo(string movieTitle)
         {
             string json;
             using (WebClient wc = new WebClient())
             {
-                json = wc.DownloadString("https://www.omdbapi.com/?t=" + movieTitle + "&apikey=" + Api);
+                json = wc.DownloadString("https://www.omdbapi.com/?t=" + movieTitle + "&apikey=" + api);
             }
+            Console.WriteLine(json);
             if (json[2] == 'R')
                 return null;
             else if(json[2] == 'T')
@@ -30,6 +30,8 @@ namespace MovieGuide
         //dosyaları tarayan ve film isimlerini alan metot.
         public void Scan(string path)
         {
+            
+  
             string[] movies = Directory.GetDirectories(path);
             for (int j = 0; j < movies.Length; j++)
             {
@@ -41,13 +43,11 @@ namespace MovieGuide
                     {
                         if (!Parse(array[k].Remove(0, array[k].LastIndexOf("\\") + 1)))
                         {
-                            
                             //database.AddBody(GetMovie(array[k]));
                         }
                     }
                 }
             }
-
         }
         public int List(string str)
         {
@@ -59,6 +59,7 @@ namespace MovieGuide
                     if (OMDb.IsConnectionOK())
                     {
                         Scan(str);
+                        return 1;
                     }
                     else
                     {
@@ -77,7 +78,7 @@ namespace MovieGuide
             }
             else if (str.Length != 0)
             {
-                if (ScanviaID(str))
+                if (GetMovieInfo(str)!=null)
                 {
             //        pathTextBox.Clear();
             //        statusLabel.Hide();
@@ -100,17 +101,7 @@ namespace MovieGuide
             }
             return 0;
         }
-        public bool ScanviaID(string id )
-        {
-            Movie movie = GetMovie(id);
-           
-
-            if (Parse(id))
-                return true;
-            else
-                return false;
-        }
-        //İnternet bağlantısını kontrol eden metot
+        //İnternet bağlantısını kontrolS eden metot
         public static bool IsConnectionOK()
         {
             try
@@ -131,9 +122,9 @@ namespace MovieGuide
         {
             int digit = 0;
             //buralari duzelt
-            if (GetMovie(raw_title)!= null)
+            if (GetMovieInfo(raw_title)!= null)
             {
-                database.AddBody(GetMovie(raw_title));
+                database.AddBody(GetMovieInfo(raw_title));
                 return true;
             }
             else
@@ -148,9 +139,9 @@ namespace MovieGuide
                             raw_title = raw_title.Substring(0, i - 1);
                             raw_title = raw_title.Replace('.', ' ');
                             //buralari duzelt
-                            if (GetMovie(raw_title) != null)
+                            if (GetMovieInfo(raw_title) != null)
                             {
-                                database.AddBody(GetMovie(raw_title));
+                                database.AddBody(GetMovieInfo(raw_title));
                                 return true;
                             }
                             else
