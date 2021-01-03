@@ -11,7 +11,6 @@ namespace MovieGuide
         private readonly string api = File.ReadAllText(@"api.txt");
 
         //API kullanarak film bilgilerini alan metot.
-
         private Movie GetMovieInfo(string movieTitle)
         {
             string json;
@@ -26,12 +25,19 @@ namespace MovieGuide
                 return JsonConvert.DeserializeObject<Movie>(json);
             return null;
         }
-
-        //dosyaları tarayan ve film isimlerini alan metot.
+        public bool IsVideoFile(string fileName)
+        {
+            if (fileName.IndexOf(".avi") != -1 && fileName.IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1 || fileName.IndexOf(".mp4") != -1 && fileName.IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1 || fileName.IndexOf(".mkv") != -1 && fileName.IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1 || fileName.IndexOf(".ts") != -1 && fileName.IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public void Scan(string path)
         {
-            
-  
             string[] movies = Directory.GetDirectories(path);
             for (int j = 0; j < movies.Length; j++)
             {
@@ -39,7 +45,7 @@ namespace MovieGuide
 
                 for (int k = 0; k < array.Length; k++)
                 {
-                    if (array[k].IndexOf(".avi") != -1 && array[k].IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1 || array[k].IndexOf(".mp4") != -1 && array[k].IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1 || array[k].IndexOf(".mkv") != -1 && array[k].IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1 || array[k].IndexOf(".ts") != -1 && array[k].IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1)
+                    if (IsVideoFile(array[k]))
                     {
                         if (!Parse(array[k].Remove(0, array[k].LastIndexOf("\\") + 1)))
                         {
