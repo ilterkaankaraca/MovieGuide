@@ -11,7 +11,7 @@ namespace MovieGuide
         private readonly string api = File.ReadAllText(@"api.txt");
 
         //API kullanarak film bilgilerini alan metot.
-        private Movie GetMovieInfo(string movieTitle)
+        public Movie GetMovieInfo(string movieTitle)
         {
             string json;
             using (WebClient wc = new WebClient())
@@ -25,6 +25,18 @@ namespace MovieGuide
                 return JsonConvert.DeserializeObject<Movie>(json);
             return null;
         }
+        public string ClearString(string path)
+        {
+            path = path.ToLower();
+            path.Replace("extended", "");
+            path.Replace("directors cut", "");
+            path.Replace("director's cut", "");
+            path.Replace("(", "");
+            path.Replace(")", "");
+            path.Replace("'", "");
+            return path;
+        }
+
         public bool IsVideoFile(string fileName)
         {
             if (fileName.IndexOf(".avi") != -1 && fileName.IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1 || fileName.IndexOf(".mp4") != -1 && fileName.IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1 || fileName.IndexOf(".mkv") != -1 && fileName.IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1 || fileName.IndexOf(".ts") != -1 && fileName.IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1)
@@ -45,6 +57,8 @@ namespace MovieGuide
 
                 for (int k = 0; k < array.Length; k++)
                 {
+                    //use folder name instead of file name
+                    //
                     if (IsVideoFile(array[k]))
                     {
                         if (!Parse(array[k].Remove(0, array[k].LastIndexOf("\\") + 1)))
