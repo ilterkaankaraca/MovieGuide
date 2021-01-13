@@ -98,7 +98,7 @@ namespace MovieGuide
         }
         private void DatagridViewMoviesCellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (s == 0 &&e.RowIndex >= 0)
+            if (s == 0 && e.RowIndex >= 0)
             {
                     selectedRow = e;
                     deleteAllButton.Text = StringLiterals.delete;

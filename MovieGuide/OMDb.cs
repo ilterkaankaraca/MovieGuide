@@ -49,7 +49,7 @@ namespace MovieGuide
                     {
                         if (!Parse(array[k].Remove(0, array[k].LastIndexOf("\\") + 1)))
                         {
-                            //database.AddBody(GetMovie(array[k]));
+                            database.AddNotFound(array[k].Replace("'",""));
                         }
                     }
                 }
@@ -57,7 +57,7 @@ namespace MovieGuide
         }
         public int List(string str)
         {
-            //Girilen stringin içinde :\ olup olmadığı kontrol ediliyor. Varsa dosya yolu yoksa film adı olarak işlem yapılıyor.
+            //check if movie or path
             if (str.IndexOf(":\\") != -1)
             {
                 if (Directory.Exists(str))
@@ -69,17 +69,15 @@ namespace MovieGuide
                     }
                     else
                     {
-                        //statusLabel.Show();
-                        //statusLabel.ForeColor = Color.Red;
-                        //statusLabel.Text = StringLiterals.connectionIssue;
+                        //internet problem
+                        return -1;
                     }
 
                 }
                 else
                 {
-                    //statusLabel.Show();
-                    //statusLabel.ForeColor = Color.Red;
-                    //statusLabel.Text = StringLiterals.incorrectPath;
+                    //path doesnt exist
+                    return -2;
                 }
             }
             else if (str.Length != 0)

@@ -62,6 +62,10 @@ namespace MovieGuide
         public void AddBody(Movie movie)
         {
             Connect();
+            if (movie.year.Length != 4)
+            {
+                return;
+            }
             command = new OleDbCommand("SELECT * FROM MOVIES WHERE IMDB_ID='" + movie.imdbId + "'", databaseConnection);
             reader = command.ExecuteReader();
             if (reader.Read() == false)
@@ -87,6 +91,19 @@ namespace MovieGuide
             }
             Disconnect();
 
+        }
+        public void AddNotFound(string path)
+        {
+            Connect();
+            command = new OleDbCommand("SELECT * FROM NOT_FOUND WHERE PATH='" + path + "'", databaseConnection);
+            reader = command.ExecuteReader();
+            if (reader.Read() == false)
+            {
+                command = new OleDbCommand("INSERT INTO NOT_FOUND([PATH]) VALUES (@Path)", databaseConnection);
+                command.Parameters.AddWithValue("@Title", path);
+                command.ExecuteNonQuery();
+            }
+            Disconnect();
         }
         //Bulunamayan filmlerin dosya yolunu ve adını bir tabloya kaydeden program
         public void Add1(string path)
