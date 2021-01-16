@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 
@@ -28,12 +29,16 @@ namespace MovieGuide
         public string ClearString(string path)
         {
             path = path.ToLower();
-            path.Replace("extended", "");
-            path.Replace("directors cut", "");
-            path.Replace("director's cut", "");
-            path.Replace("(", "");
-            path.Replace(")", "");
-            path.Replace("'", "");
+            path = path.Substring(path.LastIndexOf('\\')+1);
+            path=path.Replace("extended", "");
+            path=path.Replace("directors cut", "");
+            path=path.Replace("director's cut", "");
+            path=path.Replace("(", "");
+            path = path.Replace("[", "");
+            path = path.Replace("]", "");
+            path =path.Replace(")", "");
+            path=path.Replace("'", "");
+
             return path;
         }
 
@@ -48,28 +53,44 @@ namespace MovieGuide
                 return false;
             }
         }
-        public void Scan(string path)
+        public List<Movie> Scan(string path)
         {
-            string[] movies = Directory.GetDirectories(path);
-            for (int j = 0; j < movies.Length; j++)
+            //TODO: return mutliple lists
+            string[] movieFolders = Directory.GetDirectories(path);
+            string movieTitle;
+            Movie movie;
+            List<Movie> movieList = new List<Movie>(); 
+            for (int i = 0; i < movieFolders.Length; i++)
             {
-                string[] array = Directory.GetFiles(movies[j]);
-
-                for (int k = 0; k < array.Length; k++)
+                movieTitle = ClearString(movieFolders[i]);
+                movie = GetMovieInfo(movieTitle);
+                
+                //use folder name instead of file name
+                if (movie != null)
                 {
-                    //use folder name instead of file name
-                    //
-                    if (IsVideoFile(array[k]))
+                    movieList.Add(movie);
+                }
+                else
+                {
+                    movie=GetMovieInfo(ClearMore(movieTitle));
+                    if (movie != null)
                     {
-                        if (!Parse(array[k].Remove(0, array[k].LastIndexOf("\\") + 1)))
-                        {
-                            database.AddNotFound(array[k].Replace("'",""));
-                        }
+                        movieList.Add(movie);
                     }
                 }
             }
+            return movieList;
         }
-        public int List(string str)
+        
+        public void AddToDatabase(List<Movie> movies)
+        {
+            foreach(Movie movie in movies)
+            {
+                database.Add(movie);
+            }
+        }
+
+        public int Start(string str)
         {
             //check if movie or path
             if (str.IndexOf(":\\") != -1)
@@ -78,7 +99,7 @@ namespace MovieGuide
                 {
                     if (OMDb.IsConnectionOK())
                     {
-                        Scan(str);
+                        AddToDatabase(Scan(str));
                         return 1;
                     }
                     else
@@ -136,16 +157,9 @@ namespace MovieGuide
             }
         }
         //İsimleri temizleyen metot.
-        public bool Parse(string raw_title)
+        public string ClearMore(string raw_title)
         {
             int digit = 0;
-            //buralari duzelt
-            if (GetMovieInfo(raw_title)!= null)
-            {
-                database.AddBody(GetMovieInfo(raw_title));
-                return true;
-            }
-            else
             {
                 for (int i = raw_title.Length - 1; i >= 0; i--)
                 {
@@ -156,16 +170,7 @@ namespace MovieGuide
                         {
                             raw_title = raw_title.Substring(0, i - 1);
                             raw_title = raw_title.Replace('.', ' ');
-                            //buralari duzelt
-                            if (GetMovieInfo(raw_title) != null)
-                            {
-                                database.AddBody(GetMovieInfo(raw_title));
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
+                            break;
                         }
                     }
                     else
@@ -173,7 +178,7 @@ namespace MovieGuide
                         digit = 0;
                     }
                 }
-                return false;
+                return raw_title;
             }
         }
     }
