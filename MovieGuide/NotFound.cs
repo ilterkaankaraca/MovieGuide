@@ -11,7 +11,7 @@ namespace MovieGuide
         public NotFound()
         {
             InitializeComponent();
-            Db.List("NotFound");
+            Db.SelectFrom("NotFound");
             dataGridView_notfound.DataSource = DatabaseOperations.table;
             DatabaseOperations.table.AcceptChanges();
             dataGridView_notfound.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -22,15 +22,15 @@ namespace MovieGuide
         {
             if (button_deleteall.Text == StringLiterals.deleteAll)
             {
-                Db.DeleteAll("NotFound");
-                Db.List("NotFound");
+                Db.DeleteAllFrom("NotFound");
+                Db.SelectFrom("NotFound");
                 dataGridView_notfound.DataSource = DatabaseOperations.table;
                 DatabaseOperations.table.AcceptChanges();
             }
             else
             {
-                Db.Delete("NotFound", dataGridView_notfound.Rows[k.RowIndex].Cells[0].Value.ToString());
-                Db.List("NotFound");
+                Db.DeleteFrom("NotFound", dataGridView_notfound.Rows[k.RowIndex].Cells[0].Value.ToString());
+                Db.SelectFrom("NotFound");
                 dataGridView_notfound.DataSource = DatabaseOperations.table;
                 DatabaseOperations.table.AcceptChanges();
                 button_deleteall.Text = StringLiterals.deleteAll;

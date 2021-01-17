@@ -10,7 +10,7 @@ namespace MovieGuide
         FolderBrowserDialog browser = new FolderBrowserDialog();
         DatabaseOperations database = new DatabaseOperations();
         NotFound notFound;
-        private int s;
+        private readonly int s; 
         DataGridViewCellEventArgs selectedRow;
 
         public Main()
@@ -21,7 +21,7 @@ namespace MovieGuide
             deleteAllButton.Text = StringLiterals.deleteAll;
             statusLabel.Hide();
             notFoundButton.Text = StringLiterals.notFound;
-            database.List("MOVIES");
+            database.SelectFrom("MOVIES");
             moviesDataGridView.DataSource = DatabaseOperations.table;
             DatabaseOperations.table.AcceptChanges();
             searchByComboBox.Items.Add(StringLiterals.title);
@@ -48,15 +48,15 @@ namespace MovieGuide
         {
             if (deleteAllButton.Text == StringLiterals.deleteAll)
             {
-                database.DeleteAll("MOVIES");
-                database.List("MOVIES");
+                database.DeleteAllFrom("MOVIES");
+                database.SelectFrom("MOVIES");
                 moviesDataGridView.DataSource = DatabaseOperations.table;
                 DatabaseOperations.table.AcceptChanges();
             }
             else
             {
-                database.Delete("MOVIES", moviesDataGridView.Rows[selectedRow.RowIndex].Cells[15].Value.ToString());
-                database.List("MOVIES");
+                database.DeleteFrom("MOVIES", moviesDataGridView.Rows[selectedRow.RowIndex].Cells[15].Value.ToString());
+                database.SelectFrom("MOVIES");
                 moviesDataGridView.DataSource = DatabaseOperations.table;
                 DatabaseOperations.table.AcceptChanges();
                 deleteAllButton.Text = StringLiterals.deleteAll;
@@ -92,10 +92,6 @@ namespace MovieGuide
             moviesDataGridView.DataSource = DatabaseOperations.table;
             DatabaseOperations.table.AcceptChanges();
         }
-        private void MainFormClosing(object sender, FormClosingEventArgs e)
-        {
-            Application.Exit();
-        }
         private void DatagridViewMoviesCellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (s == 0 && e.RowIndex >= 0)
@@ -111,7 +107,6 @@ namespace MovieGuide
                 pathTextBox.Clear();
             }
         }
-
         private void ScanButtonClick(object sender, EventArgs e)
         {
 
@@ -121,7 +116,7 @@ namespace MovieGuide
                 {
                     pathTextBox.Clear();
                     statusLabel.Hide();
-                    database.List("MOVIES");
+                    database.SelectFrom("MOVIES");
                     moviesDataGridView.DataSource = DatabaseOperations.table;
                     DatabaseOperations.table.AcceptChanges();
                 }
@@ -139,5 +134,10 @@ namespace MovieGuide
                 statusLabel.Text = StringLiterals.errorBlank;
             }
         }
+        private void MainFormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
     }
 }

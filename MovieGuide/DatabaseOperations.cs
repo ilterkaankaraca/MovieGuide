@@ -37,26 +37,13 @@ namespace MovieGuide
             Disconnect();
             return id;
         }
-        public void AddActor(string actors)
-        {
-            Connect();
-            //command = new OleDbCommand("SELECT ")
-            //Aktor tabloda var mi kontrol et yoksa ekle varsa sadece kullan 
-            //eklenen veya bulunan aktorun idsini al
-            //eklenen filmin idsi ile 
-            //Work in progress
-            Disconnect();
-        }
         public void Add(Movie movie) // this will change
         {
-            int a = 0;
-            a = 5+a;
             AddBody(movie);
             //Add actors if they are not there create new(another function(tum lookup tablolari tek fonksiyonla doldurulabilir(string, tablo_adi)))
             //Add Rated from Rate table
             //Add Genre(tamamen static imdbnin sitesinden alinabilir)
             //Add Director
-
         }
         //veri tabanına ekleme yapan metot.
         public void AddBody(Movie movie)
@@ -69,20 +56,12 @@ namespace MovieGuide
             command = new OleDbCommand("SELECT * FROM MOVIES WHERE IMDB_ID='" + movie.imdbId + "'", databaseConnection);
             reader = command.ExecuteReader();
             if (reader.Read() == false)
-            {
-                //command = new OleDbCommand("INSERT INTO MOVIES([TITLE], [YEAR], [RATED], [RUNTIME], [GENRE], [ACTORS], [PLOT], [DIRECTOR], [WRITER], [LANGUAGE], [COUNTRY], [AWARDS], [IMDB_RATING], [IMDB_VOTES], [IMDB_ID]) VALUES (@Title, @Year, @Rated, @Runtime, @Genre, @Actors, @Plot, @Director, @Writer, @Language, @Country, @Awards, @imdbRating, @imdbVotes, @imdbID)", databaseConnection);
+            {                
                 command = new OleDbCommand("INSERT INTO MOVIES([TITLE], [YEAR], [RUNTIME], [PLOT], [AWARDS], [IMDB_RATING], [IMDB_VOTES], [IMDB_ID]) VALUES (@Title, @Year, @Runtime, @Plot, @Awards, @imdbRating, @imdbVotes, @imdbID)", databaseConnection);
                 command.Parameters.AddWithValue("@Title", movie.title);
                 command.Parameters.AddWithValue("@Year", movie.year);
-                //command.Parameters.AddWithValue("@Rated", movie.rated);
                 command.Parameters.AddWithValue("@Runtime", movie.runtime);
-                //command.Parameters.AddWithValue("@Genre", movie.genre);
-                //command.Parameters.AddWithValue("@Actors", movie.actors);
                 command.Parameters.AddWithValue("@Plot", movie.plot);
-                //command.Parameters.AddWithValue("@Director", movie.director);
-                //command.Parameters.AddWithValue("@Writer", movie.writer);
-                //command.Parameters.AddWithValue("@Language", movie.language);
-                //command.Parameters.AddWithValue("@Country", movie.country);
                 command.Parameters.AddWithValue("@Awards", movie.awards);
                 command.Parameters.AddWithValue("@imdbRating", movie.imdbRating);
                 command.Parameters.AddWithValue("@imdbVotes", movie.imdbVotes);
@@ -122,7 +101,7 @@ namespace MovieGuide
             Disconnect();
         }
         //Tablodaki tüm verileri siler.
-        public void DeleteAll(string table_name)
+        public void DeleteAllFrom(string table_name)
         {
             Connect();
             command = new OleDbCommand("DELETE * FROM " + table_name + "", databaseConnection);
@@ -130,7 +109,7 @@ namespace MovieGuide
             Disconnect();
         }
         //Listeler.       
-        public void List(string table_name)
+        public void SelectFrom(string table_name)
         {
             table = new DataTable();
             Connect();
@@ -143,12 +122,12 @@ namespace MovieGuide
         {
             table = new DataTable();
             Connect();
-            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from " + table_name + " where " + column + " Like '" + search_text + "%'", databaseConnection);
-            //OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from " + table_name + " Like '" + search_text + "%'",  con);
+            //TODO: mumkun olabilecek tum stutunlari wherein icine koy bu sayede comboboxa ihtiyacin kalmaz
+            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from " + table_name + " where " + column + " Like '%" + search_text + "%'", databaseConnection);
             adapter.Fill(table);
             Disconnect();
         }
-        public void Delete(string table, string pkey)
+        public void DeleteFrom(string table, string pkey)
         {
             Connect();
             if (table == "Movies")
