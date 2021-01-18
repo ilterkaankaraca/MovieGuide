@@ -6,27 +6,26 @@ using System.Net;
 
 namespace MovieGuide
 {
-    class OMDb
+    public class OMDb
     {
-        readonly DatabaseOperations database = new DatabaseOperations();
-        private readonly string api = File.ReadAllText(@"api.txt");
+        readonly static DatabaseOperations database = new DatabaseOperations();
+        private readonly static string api = File.ReadAllText(@"api.txt");
 
         //API kullanarak film bilgilerini alan metot.
-        public Movie GetMovieInfo(string movieTitle)
+        public static Movie GetMovieInfo(string movieTitle)
         {
             string json;
             using (WebClient wc = new WebClient())
             {
                 json = wc.DownloadString("https://www.omdbapi.com/?t=" + movieTitle + "&apikey=" + api);
             }
-            Console.WriteLine(json);
             if (json[2] == 'R')
                 return null;
             else if(json[2] == 'T')
                 return JsonConvert.DeserializeObject<Movie>(json);
             return null;
         }
-        public string ClearString(string path)
+        public static string ClearString(string path)
         {
             path = path.ToLower();
             path = path.Substring(path.LastIndexOf('\\')+1);
@@ -42,7 +41,7 @@ namespace MovieGuide
             return path;
         }
 
-        public bool IsVideoFile(string fileName)
+        public static bool IsVideoFile(string fileName)
         {
             if (fileName.IndexOf(".avi") != -1 && fileName.IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1 || fileName.IndexOf(".mp4") != -1 && fileName.IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1 || fileName.IndexOf(".mkv") != -1 && fileName.IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1 || fileName.IndexOf(".ts") != -1 && fileName.IndexOf("sample", StringComparison.CurrentCultureIgnoreCase) == -1)
             {
@@ -53,7 +52,7 @@ namespace MovieGuide
                 return false;
             }
         }
-        public List<Movie> Scan(string path)
+        public static List<Movie> Scan(string path)
         {
             //TODO: return mutliple lists
             string[] movieFolders = Directory.GetDirectories(path);
@@ -82,7 +81,7 @@ namespace MovieGuide
             return movieList;
         }
         
-        public void AddToDatabase(List<Movie> movies)
+        public static void AddToDatabase(List<Movie> movies)
         {
             foreach(Movie movie in movies)
             {
@@ -90,7 +89,7 @@ namespace MovieGuide
             }
         }
 
-        public int Start(string str)
+        public static int Start(string str)
         {
             //check if movie or path
             if (str.IndexOf(":\\") != -1)
@@ -157,7 +156,7 @@ namespace MovieGuide
             }
         }
         //İsimleri temizleyen metot.
-        public string ClearMore(string raw_title)
+        public static string ClearMore(string raw_title)
         {
             int digit = 0;
             {

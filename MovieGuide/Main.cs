@@ -6,7 +6,6 @@ namespace MovieGuide
 {
     public partial class Main : Form
     {
-        OMDb ombd = new OMDb();
         FolderBrowserDialog browser = new FolderBrowserDialog();
         DatabaseOperations database = new DatabaseOperations();
         NotFound notFound;
@@ -112,7 +111,7 @@ namespace MovieGuide
 
             if (pathTextBox.Text.Length != 0)
             {
-                if (ombd.Start(pathTextBox.Text)==1)
+                if (OMDb.Start(pathTextBox.Text)==1)
                 {
                     pathTextBox.Clear();
                     statusLabel.Hide();
