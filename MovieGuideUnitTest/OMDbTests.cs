@@ -13,7 +13,7 @@ namespace MovieGuideUnitTest
         {
             //Act
             Movie result=OMDb.GetMovieInfo("wrfea");
-            Assert.IsNotNull(result);
+            Assert.IsNull(result);
         }
         public void GetMovieInfo_ReturnNotNull()
         {

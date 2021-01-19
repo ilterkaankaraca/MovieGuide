@@ -9,7 +9,7 @@ namespace MovieGuide
     public class OMDb
     {
         readonly static DatabaseOperations database = new DatabaseOperations();
-        private readonly static string api = File.ReadAllText(@"api.txt");
+        public readonly static string api = File.ReadAllText(@"C:\\repos\\MovieGuide\\MovieGuide\\bin\\Debug\\api.txt");
 
         //API kullanarak film bilgilerini alan metot.
         public static Movie GetMovieInfo(string movieTitle)
