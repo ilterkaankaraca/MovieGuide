@@ -9,7 +9,7 @@ namespace MovieGuide
         FolderBrowserDialog browser = new FolderBrowserDialog();
         DatabaseOperations database = new DatabaseOperations();
         NotFound notFound;
-        private readonly int s; 
+        private readonly int s;
         DataGridViewCellEventArgs selectedRow;
 
         public Main()
@@ -95,8 +95,8 @@ namespace MovieGuide
         {
             if (s == 0 && e.RowIndex >= 0)
             {
-                    selectedRow = e;
-                    deleteAllButton.Text = StringLiterals.delete;
+                selectedRow = e;
+                deleteAllButton.Text = StringLiterals.delete;
             }
         }
         private void PathTextBoxClick(object sender, EventArgs e)
@@ -111,7 +111,7 @@ namespace MovieGuide
 
             if (pathTextBox.Text.Length != 0)
             {
-                if (OMDb.Start(pathTextBox.Text)==1)
+                if (OMDb.Start(pathTextBox.Text) == 1)
                 {
                     pathTextBox.Clear();
                     statusLabel.Hide();

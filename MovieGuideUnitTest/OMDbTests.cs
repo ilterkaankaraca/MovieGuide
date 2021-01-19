@@ -15,6 +15,7 @@ namespace MovieGuideUnitTest
             Movie result=OMDb.GetMovieInfo("wrfea");
             Assert.IsNull(result);
         }
+        [TestMethod]
         public void GetMovieInfo_ReturnNotNull()
         {
             //Act

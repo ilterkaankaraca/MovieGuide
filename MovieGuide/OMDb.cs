@@ -21,22 +21,22 @@ namespace MovieGuide
             }
             if (json[2] == 'R')
                 return null;
-            else if(json[2] == 'T')
+            else if (json[2] == 'T')
                 return JsonConvert.DeserializeObject<Movie>(json);
             return null;
         }
         public static string ClearString(string path)
         {
             path = path.ToLower();
-            path = path.Substring(path.LastIndexOf('\\')+1);
-            path=path.Replace("extended", "");
-            path=path.Replace("directors cut", "");
-            path=path.Replace("director's cut", "");
-            path=path.Replace("(", "");
+            path = path.Substring(path.LastIndexOf('\\') + 1);
+            path = path.Replace("extended", "");
+            path = path.Replace("directors cut", "");
+            path = path.Replace("director's cut", "");
+            path = path.Replace("(", "");
             path = path.Replace("[", "");
             path = path.Replace("]", "");
-            path =path.Replace(")", "");
-            path=path.Replace("'", "");
+            path = path.Replace(")", "");
+            path = path.Replace("'", "");
 
             return path;
         }
@@ -58,12 +58,12 @@ namespace MovieGuide
             string[] movieFolders = Directory.GetDirectories(path);
             string movieTitle;
             Movie movie;
-            List<Movie> movieList = new List<Movie>(); 
+            List<Movie> movieList = new List<Movie>();
             for (int i = 0; i < movieFolders.Length; i++)
             {
                 movieTitle = ClearString(movieFolders[i]);
                 movie = GetMovieInfo(movieTitle);
-                
+
                 //use folder name instead of file name
                 if (movie != null)
                 {
@@ -71,7 +71,7 @@ namespace MovieGuide
                 }
                 else
                 {
-                    movie=GetMovieInfo(ClearMore(movieTitle));
+                    movie = GetMovieInfo(ClearMore(movieTitle));
                     if (movie != null)
                     {
                         movieList.Add(movie);
@@ -80,10 +80,10 @@ namespace MovieGuide
             }
             return movieList;
         }
-        
+
         public static void AddToDatabase(List<Movie> movies)
         {
-            foreach(Movie movie in movies)
+            foreach (Movie movie in movies)
             {
                 database.Add(movie);
             }
@@ -114,33 +114,26 @@ namespace MovieGuide
                     return -2;
                 }
             }
-            else if (str.Length != 0)
+            else if (str.Length != 0 && GetMovieInfo(str) != null)
             {
-                if (GetMovieInfo(str)!=null)
+                if (OMDb.IsConnectionOK())
                 {
-            //        pathTextBox.Clear();
-            //        statusLabel.Hide();
-            //        database.List("Movies");
-            //        moviesDataGridView.DataSource = DatabaseOperations.table;
-            //        DatabaseOperations.table.AcceptChanges();
-            //    }
-            //    else
-            //    {
-            //        statusLabel.Show();
-            //        statusLabel.ForeColor = Color.Red;
-            //        statusLabel.Text = StringLiterals.notFound;
-            //    }
+                    database.Add(GetMovieInfo(str));
+                    return 1;
+                }
+                else
+                {
+                    //internet problem
+                    return -1;
+                }
             }
-            //else
-            //{
-            //    statusLabel.Show();
-            //    statusLabel.ForeColor = Color.Red;
-            //    statusLabel.Text = StringLiterals.errorBlank;
+            else
+            {
+                return -3;
             }
-            return 0;
         }
         //İnternet bağlantısını kontrolS eden metot
-        public static bool IsConnectionOK()
+        private static bool IsConnectionOK()
         {
             try
             {

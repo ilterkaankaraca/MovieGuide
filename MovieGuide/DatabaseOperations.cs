@@ -40,10 +40,6 @@ namespace MovieGuide
         public void Add(Movie movie) // this will change
         {
             AddBody(movie);
-            //Add actors if they are not there create new(another function(tum lookup tablolari tek fonksiyonla doldurulabilir(string, tablo_adi)))
-            //Add Rated from Rate table
-            //Add Genre(tamamen static imdbnin sitesinden alinabilir)
-            //Add Director
         }
         //veri tabanına ekleme yapan metot.
         public void AddBody(Movie movie)
@@ -56,7 +52,7 @@ namespace MovieGuide
             command = new OleDbCommand("SELECT * FROM MOVIES WHERE IMDB_ID='" + movie.imdbId + "'", databaseConnection);
             reader = command.ExecuteReader();
             if (reader.Read() == false)
-            {                
+            {
                 command = new OleDbCommand("INSERT INTO MOVIES([TITLE], [YEAR], [RUNTIME], [PLOT], [AWARDS], [IMDB_RATING], [IMDB_VOTES], [IMDB_ID]) VALUES (@Title, @Year, @Runtime, @Plot, @Awards, @imdbRating, @imdbVotes, @imdbID)", databaseConnection);
                 command.Parameters.AddWithValue("@Title", movie.title);
                 command.Parameters.AddWithValue("@Year", movie.year);
